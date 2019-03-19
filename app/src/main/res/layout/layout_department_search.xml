@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:gravity="start"
+    android:orientation="vertical"
+    tools:ignore="Overdraw">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp">
+
+        <ImageView
+            android:id="@+id/downArrowImage"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="14dp"
+            app:srcCompat="@drawable/ic_arrow_blue_down" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="30dp"
+            android:layout_toStartOf="@+id/downArrowImage"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/header_sub_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select"
+                android:textColor="#002f80"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/nationality_selection_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Department"
+                android:textColor="#002f80"
+                android:layout_marginBottom="5dp"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+
+
+
+    <android.support.v7.widget.SearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        app:queryHint="Enter Department"
+        app:iconifiedByDefault="false"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:searchIcon="@drawable/transfer_search_grey_16dp"
+        app:closeIcon="@drawable/cross_search"
+        app:queryBackground="@android:color/transparent"
+        android:background="@drawable/rounded_corner_edittext_white" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/nationality_selection_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginBottom="20dp" />
+        <ProgressBar
+            android:id="@+id/bankProgress"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center|top"
+            android:layout_height="wrap_content" >
+        </ProgressBar>
+    </FrameLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

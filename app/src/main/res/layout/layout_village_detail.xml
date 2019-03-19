@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/title"
+        android:textColor="@android:color/black"
+        android:text="Village Details"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/title"
+        android:id="@+id/label_name"
+        android:textColor="@color/blue_custom"
+        android:textStyle="bold"
+        android:text="Village Name: "/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBaseline="@+id/label_name"
+        android:gravity="end"
+        android:text=""
+        android:textColor="@android:color/black"
+        android:id="@+id/text_view_village_name"
+        android:layout_toEndOf="@+id/label_name" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/label_name"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/label_name"
+        android:id="@+id/label_mobile"
+        android:textStyle="bold"
+        android:textColor="@color/blue_custom"
+        android:text="Scheme: "/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBaseline="@+id/label_mobile"
+        android:gravity="end"
+        android:text=""
+        android:autoLink="phone"
+        android:textColor="@android:color/black"
+        android:id="@+id/text_view_scheme"
+        android:layout_toEndOf="@+id/label_mobile" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/label_mobile"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/label_mobile"
+        android:id="@+id/label_office"
+        android:textStyle="bold"
+        android:textColor="@color/blue_custom"
+        android:text="Year: "/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBaseline="@+id/label_office"
+        android:gravity="end"
+        android:text=""
+        android:autoLink="phone"
+        android:textColor="@android:color/black"
+        android:id="@+id/text_view_year"
+        android:layout_toEndOf="@+id/label_office" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/label_office"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/label_office"
+        android:id="@+id/label_home_no"
+        android:textStyle="bold"
+        android:textColor="@color/blue_custom"
+        android:text="Details: "/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBaseline="@+id/label_home_no"
+        android:gravity="end"
+        android:text=""
+        android:autoLink="phone"
+        android:maxLines="3"
+        android:textColor="@android:color/black"
+        android:ellipsize="end"
+        android:id="@+id/text_view_details"
+        android:layout_toEndOf="@+id/label_home_no" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:id="@+id/detail_seperator"
+        android:layout_below="@+id/text_view_details"
+        android:background="@android:color/darker_gray"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/detail_seperator"
+        android:id="@+id/label_floor"
+        android:textStyle="bold"
+        android:textColor="@color/blue_custom"
+        android:text="Sanctioned Amount: "/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBaseline="@+id/label_floor"
+        android:gravity="end"
+        android:textColor="@android:color/black"
+        android:text=""
+        android:id="@+id/text_view_sanctioned_amt"
+        android:layout_toEndOf="@+id/label_floor" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/label_floor"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/label_floor"
+        android:id="@+id/label_desk_no"
+        android:textColor="@color/blue_custom"
+        android:textStyle="bold"
+        android:text="Distance: "/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:textColor="@android:color/black"
+        android:layout_alignBaseline="@+id/label_desk_no"
+        android:gravity="end"
+        android:text=""
+        android:autoLink="phone"
+        android:id="@+id/text_view_distance"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:layout_toEndOf="@+id/label_desk_no" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:id="@+id/seperatorDistance"
+        android:layout_below="@+id/text_view_distance"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/seperatorDistance"
+        android:id="@+id/label_pa_name"
+        android:textStyle="bold"
+        android:textColor="@color/blue_custom"
+        android:text="Status: "/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBaseline="@+id/label_pa_name"
+        android:gravity="end"
+        android:text=""
+        android:textColor="@android:color/black"
+        android:id="@+id/text_view_status"
+        android:layout_toEndOf="@+id/label_pa_name" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:id="@+id/status_seperator"
+        android:layout_below="@+id/label_pa_name"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/status_seperator"
+        android:id="@+id/label_remarks"
+        android:textStyle="bold"
+        android:textColor="@color/blue_custom"
+        android:text="Remarks: "/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBaseline="@+id/label_remarks"
+        android:gravity="end"
+        android:text=""
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:textColor="@android:color/black"
+        android:id="@+id/text_view_remarks"
+        android:layout_toEndOf="@+id/label_pa_name" />
+
+</RelativeLayout>

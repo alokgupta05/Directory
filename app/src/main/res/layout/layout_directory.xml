@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_margin="20dp"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/search_name"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/rectangle_with_blue_border_color"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/transfer_search_white_16dp"
+            android:tint="#6ba4b8"
+            />
+
+        <TextView
+            android:id="@+id/lblSearchBank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search by Name"
+            android:textStyle="bold"
+            android:textColor="#6ba4b8"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="9dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/or_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="-6dp"
+        android:layout_marginTop="-6dp"
+        android:background="@drawable/transfer_circle"
+        android:gravity="center"
+        android:padding="3dp"
+        android:text="OR"
+        android:textColor="#9b9b9b"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/search_department"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/rectangle_with_blue_border_color"
+        android:gravity="center"
+        android:text="Search By Department"
+        android:textColor="#6ba4b8"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:translationZ="-2dp" />
+
+
+</LinearLayout>

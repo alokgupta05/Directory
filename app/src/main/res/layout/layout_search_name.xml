@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.SearchView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:queryHint="Enter Name"
+        app:iconifiedByDefault="false"
+        android:id="@+id/search_view"
+        app:searchIcon="@drawable/transfer_search_grey_16dp"
+        app:closeIcon="@drawable/cross_search"
+        app:queryBackground="@android:color/transparent"
+        android:background="@drawable/rounded_corner_edittext_white"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list_view_name"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
+
+</LinearLayout>
