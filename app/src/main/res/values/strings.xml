@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">Directory</string>
     <string name="not_available">उपलब्ध नाही</string>
+
+    <string name="directory">Directory</string>
+    <string name="villages">Villages</string>
+    <string name="complaint">Complaint</string>
+    <string name="karyakarta">Karyakarta</string>
+    <string name="birthdays">Birthdays</string>
+    <string name="daily_program">Daily Program</string>
+    <string name="self_task">Self Task</string>
+
 </resources>
