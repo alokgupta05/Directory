@@ -26,11 +26,7 @@ import android.widget.Toast;
 
 import com.ajit.bjp.R;
 import com.ajit.bjp.adapter.TitleListAdapter;
-import com.ajit.bjp.model.Entry;
-import com.ajit.bjp.model.Example;
 import com.ajit.bjp.model.ExampleVillage;
-import com.ajit.bjp.model.PersonFeed;
-import com.ajit.bjp.model.Person;
 import com.ajit.bjp.model.Village;
 import com.ajit.bjp.model.VillageEntry;
 import com.ajit.bjp.model.VillageFeed;

@@ -97,6 +97,70 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (disposable != null && !disposable.isDisposed())
+            disposable.dispose();
+
+        if(selectedMenuDisposable != null && !selectedMenuDisposable.isDisposed()) {
+            selectedMenuDisposable.dispose();
+        }
+    }
+
+    private NavigationMenuListAdapter getMenuListAdapter() {
+        List<Integer> menuList = new ArrayList<>();
+        menuList.add(R.string.directory);
+        menuList.add(R.string.villages);
+        menuList.add(R.string.complaint);
+        menuList.add(R.string.karyakarta);
+        menuList.add(R.string.birthdays);
+        menuList.add(R.string.daily_program);
+        menuList.add(R.string.self_task);
+
+        return new NavigationMenuListAdapter(menuList);
+    }
+
+    private void handleSelectedMenu(int selectedMenu) {
+        drawerLayout.closeDrawer(GravityCompat.START);
+
+        switch (selectedMenu) {
+
+            case R.string.directory:
+                if(AppCache.INSTANCE.getValueOfAppCache(RESPONSE_DATA)!=null) {
+                    launchDirectory();
+                }else{
+                    fetchDirectory();
+                }
+                break;
+
+            case R.string.villages:
+                if(AppCache.INSTANCE.getValueOfAppCache(RESPONSE_DATA_VILLAGE)!=null) {
+                    launchVillages();
+                }else{
+                    fetchVillages();
+                }
+                break;
+
+            case R.string.complaint:
+                break;
+
+            case R.string.karyakarta:
+                launchKaryKarta();
+                break;
+
+            case R.string.birthdays:
+                break;
+
+            case R.string.daily_program:
+                break;
+
+            case R.string.self_task:
+                break;
+
+        }
+    }
+
     private void launchDirectory(){
         Intent intentVillages = new Intent(HomeActivity.this, DirectoryActivity.class);
         startActivity(intentVillages);
@@ -105,6 +169,11 @@ public class HomeActivity extends AppCompatActivity {
     private void launchVillages(){
         Intent intentDirectory = new Intent(HomeActivity.this, VillageActivity.class);
         startActivity(intentDirectory);
+    }
+
+    private void launchKaryKarta() {
+        Intent intent = new Intent(HomeActivity.this, KaryaKartaActivity.class);
+        startActivity(intent);
     }
 
     private void fetchDirectory() {
@@ -156,62 +225,4 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    private NavigationMenuListAdapter getMenuListAdapter() {
-        List<Integer> menuList = new ArrayList<>();
-        menuList.add(R.string.directory);
-        menuList.add(R.string.villages);
-        menuList.add(R.string.complaint);
-        menuList.add(R.string.karyakarta);
-        menuList.add(R.string.birthdays);
-        menuList.add(R.string.daily_program);
-        menuList.add(R.string.self_task);
-
-        return new NavigationMenuListAdapter(menuList);
-    }
-
-    private void handleSelectedMenu(int selectedMenu) {
-        drawerLayout.closeDrawer(GravityCompat.START);
-
-        switch (selectedMenu) {
-
-            case R.string.directory:
-                if(AppCache.INSTANCE.getValueOfAppCache(RESPONSE_DATA)!=null) {
-                    launchDirectory();
-                }else{
-                    fetchDirectory();
-                }
-                break;
-
-            case R.string.villages:
-                if(AppCache.INSTANCE.getValueOfAppCache(RESPONSE_DATA_VILLAGE)!=null) {
-                    launchVillages();
-                }else{
-                    fetchVillages();
-                }
-                break;
-
-            case R.string.complaint:
-                break;
-
-            case R.string.karyakarta:
-                break;
-
-            case R.string.birthdays:
-                break;
-
-            case R.string.daily_program:
-                break;
-
-            case R.string.self_task:
-                break;
-
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (disposable != null && !disposable.isDisposed())
-            disposable.dispose();
-    }
 }
