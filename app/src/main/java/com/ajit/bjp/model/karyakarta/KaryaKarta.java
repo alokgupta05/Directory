@@ -1,4 +1,4 @@
-package com.ajit.bjp.model;
+package com.ajit.bjp.model.karyakarta;
 
 import java.util.Date;
 

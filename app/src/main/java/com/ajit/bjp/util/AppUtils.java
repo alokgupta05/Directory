@@ -1,9 +1,9 @@
 package com.ajit.bjp.util;
 
 import com.ajit.bjp.model.Gs$cell;
-import com.ajit.bjp.model.KaryaKarta;
-import com.ajit.bjp.model.KaryaKartaEntry;
-import com.ajit.bjp.model.KaryaKartaFeed;
+import com.ajit.bjp.model.karyakarta.KaryaKarta;
+import com.ajit.bjp.model.karyakarta.KaryaKartaEntry;
+import com.ajit.bjp.model.karyakarta.KaryaKartaFeed;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -1,5 +1,12 @@
-package com.ajit.bjp.model;
+package com.ajit.bjp.model.karyakarta;
 
+import com.ajit.bjp.model.Category_;
+import com.ajit.bjp.model.Content;
+import com.ajit.bjp.model.Gs$cell;
+import com.ajit.bjp.model.Id_;
+import com.ajit.bjp.model.Link_;
+import com.ajit.bjp.model.Title_;
+import com.ajit.bjp.model.Updated_;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

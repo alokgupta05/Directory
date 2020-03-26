@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.ajit.bjp.R;
-import com.ajit.bjp.model.KaryaKarta;
+import com.ajit.bjp.model.karyakarta.KaryaKarta;
 import com.ajit.bjp.network.APIService;
 import com.ajit.bjp.network.APIUtils;
 import com.ajit.bjp.util.AppCache;

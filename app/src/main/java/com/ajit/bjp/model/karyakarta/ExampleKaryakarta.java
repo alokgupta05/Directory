@@ -1,4 +1,4 @@
-package com.ajit.bjp.model;
+package com.ajit.bjp.model.karyakarta;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

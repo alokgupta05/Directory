@@ -1,13 +1,10 @@
 package com.ajit.bjp.network;
 
 import com.ajit.bjp.model.Example;
-import com.ajit.bjp.model.ExampleKaryakarta;
+import com.ajit.bjp.model.karyakarta.ExampleKaryakarta;
 import com.ajit.bjp.model.ExampleVillage;
 
-import java.util.List;
-
 import io.reactivex.Flowable;
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 

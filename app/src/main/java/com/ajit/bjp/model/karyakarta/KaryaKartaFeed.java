@@ -1,5 +1,15 @@
-package com.ajit.bjp.model;
+package com.ajit.bjp.model.karyakarta;
 
+import com.ajit.bjp.model.Author;
+import com.ajit.bjp.model.Category;
+import com.ajit.bjp.model.Gs$colCount;
+import com.ajit.bjp.model.Gs$rowCount;
+import com.ajit.bjp.model.Id;
+import com.ajit.bjp.model.Link;
+import com.ajit.bjp.model.OpenSearch$startIndex;
+import com.ajit.bjp.model.OpenSearch$totalResults;
+import com.ajit.bjp.model.Title;
+import com.ajit.bjp.model.Updated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
