@@ -1,12 +1,15 @@
 package com.ajit.bjp.activity.corona;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.ajit.bjp.R;
 import com.ajit.bjp.model.CellEntry;
@@ -96,9 +99,13 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
         ComplaintAdapter adapter = new ComplaintAdapter(complaintList);
         listView.setAdapter(adapter);
 
-        adapter.getShareContent().subscribe( content -> {
-            shareContent(content);
-        });
+        adapter.getShareContent().subscribe( content ->
+            shareContent(content)
+        );
+
+        adapter.getWhatsAppNumber().subscribe( whatsAppNo ->
+                openWhatsApp(whatsAppNo)
+        );
     }
 
     private List<CoronaComplaint> getCoronaComplaints(CoronaFeed feed) {
@@ -213,5 +220,19 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
 
         Intent shareIntent = Intent.createChooser(sendIntent, null);
         startActivity(shareIntent);
+    }
+
+    private void openWhatsApp(String whatsAppNo) {
+        String url = "https://api.whatsapp.com/send?phone=" + whatsAppNo;
+        try {
+            PackageManager pm = getPackageManager();
+            pm.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES);
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+        } catch (PackageManager.NameNotFoundException e) {
+            Toast.makeText(CoronaComplaintListActivity.this, "Whatsapp app not installed in your phone", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
     }
 }

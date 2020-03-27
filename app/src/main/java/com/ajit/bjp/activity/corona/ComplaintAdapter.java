@@ -22,6 +22,7 @@ public class ComplaintAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private List<CoronaComplaint> mComplaintList;
     private List<String> mHeaders;
     private PublishSubject<String> shareContent = PublishSubject.create();
+    private PublishSubject<String> whatsAppNumber = PublishSubject.create();
 
     ComplaintAdapter(@NonNull List<CoronaComplaint> complaintList) {
         mComplaintList = complaintList;
@@ -61,6 +62,10 @@ public class ComplaintAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             shareContent.onNext(content);
         });
+
+        holder.btnWhatsApp.setOnClickListener( view ->
+            whatsAppNumber.onNext("+91".concat(complaint.getWhatsAppNo()))
+        );
     }
 
     @Override
@@ -72,11 +77,15 @@ public class ComplaintAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return shareContent;
     }
 
+    Observable<String> getWhatsAppNumber() {
+        return whatsAppNumber;
+    }
+
     private class CompalaintViewHolder extends RecyclerView.ViewHolder {
 
         TextView lblFullName, lblDob, lblVillage, lblGender, lblMobileNo, lblWhatsAppNo, lblWorkGist, lblComplaint, lblDepartment, lblTimeStamp;
         TextView txtFullName, txtDob, txtVillage, txtGender, txtMobileNo, txtWhatsAppNo, txtWorkGist, txtComplaint, txtDepartment, txtTimeStamp;
-        ImageButton btnShare;
+        ImageButton btnShare, btnWhatsApp;
 
         CompalaintViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -104,6 +113,7 @@ public class ComplaintAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             txtTimeStamp = itemView.findViewById(R.id.txtTimeStamp);
 
             btnShare = itemView.findViewById(R.id.btnShare);
+            btnWhatsApp = itemView.findViewById(R.id.btnWhatsApp);
 
             setHeaderTexts();
         }

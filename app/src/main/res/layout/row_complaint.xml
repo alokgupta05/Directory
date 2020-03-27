@@ -4,6 +4,32 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <!-- Time Stamp -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dp_20">
+
+        <TextView
+            android:id="@+id/lblTimeStamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:textStyle="bold"
+            android:textColor="@color/blue_custom"/>
+
+        <TextView
+            android:id="@+id/txtTimeStamp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:textColor="@android:color/black"
+            android:gravity="end"/>
+
+    </LinearLayout>
+
     <!-- Full Name -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -147,16 +173,34 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_20"
             android:textStyle="bold"
-            android:textColor="@color/blue_custom"/>
+            android:textColor="@color/blue_custom"
+            android:layout_gravity="center_vertical"/>
 
-        <TextView
-            android:id="@+id/txtWhatsAppNo"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_20"
-            android:layout_marginEnd="@dimen/dp_20"
-            android:textColor="@android:color/black"
-            android:gravity="end"/>
+            android:layout_height="wrap_content">
+
+            <ImageButton android:id="@+id/btnWhatsApp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/ic_whatsapp_black"
+                android:background="@null"
+                android:layout_alignParentEnd="true"/>
+
+            <TextView
+                android:id="@+id/txtWhatsAppNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:textColor="@android:color/black"
+                android:gravity="end"
+                android:layout_toStartOf="@+id/btnWhatsApp"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+
 
     </LinearLayout>
 
@@ -229,33 +273,6 @@
 
         <TextView
             android:id="@+id/txtDepartment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_20"
-            android:layout_marginEnd="@dimen/dp_20"
-            android:textColor="@android:color/black"
-            android:gravity="end"/>
-
-    </LinearLayout>
-
-    <!-- Time Stamp -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/dp_20"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/lblTimeStamp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_20"
-            android:textStyle="bold"
-            android:textColor="@color/blue_custom"/>
-
-        <TextView
-            android:id="@+id/txtTimeStamp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_20"
