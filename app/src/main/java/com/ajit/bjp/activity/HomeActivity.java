@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.ajit.bjp.R;
+import com.ajit.bjp.activity.corona.CoronaComplaintListActivity;
 import com.ajit.bjp.adapter.NavigationMenuListAdapter;
 import com.ajit.bjp.model.Example;
 import com.ajit.bjp.model.ExampleVillage;
@@ -81,8 +82,12 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.btnCovid).setOnClickListener( view -> {
+            launchCoronaComplaint();
+        });
+
         findViewById(R.id.btnToolbarMenu).setOnClickListener( view -> {
-            drawerLayout.openDrawer(GravityCompat.START);
+//            drawerLayout.openDrawer(GravityCompat.START);
         });
 
         selectedMenuDisposable = menuListAdapter.getSelectedMenu().subscribe(
@@ -176,8 +181,12 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void fetchDirectory() {
+    private void launchCoronaComplaint() {
+        Intent intent = new Intent(this, CoronaComplaintListActivity.class);
+        startActivity(intent);
+    }
 
+    private void fetchDirectory() {
 
         if(disposable!=null  && !disposable.isDisposed()){
             disposable.dispose();
@@ -200,7 +209,6 @@ public class HomeActivity extends AppCompatActivity {
                 });
 
     }
-
 
     private void fetchVillages() {
         if(disposable!=null  && !disposable.isDisposed()){

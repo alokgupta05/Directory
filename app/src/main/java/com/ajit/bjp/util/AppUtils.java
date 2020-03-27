@@ -1,8 +1,9 @@
 package com.ajit.bjp.util;
 
+import com.ajit.bjp.model.CellEntry;
+import com.ajit.bjp.model.Content;
 import com.ajit.bjp.model.Gs$cell;
 import com.ajit.bjp.model.karyakarta.KaryaKarta;
-import com.ajit.bjp.model.karyakarta.KaryaKartaEntry;
 import com.ajit.bjp.model.karyakarta.KaryaKartaFeed;
 
 import java.text.ParseException;
@@ -15,7 +16,7 @@ import java.util.Locale;
 public final class AppUtils {
 
     public static List<KaryaKarta> createKaryakartaList(KaryaKartaFeed feed) {
-        List<KaryaKartaEntry> entryList = feed.getEntry();
+        List<CellEntry> entryList = feed.getEntry();
         List<KaryaKarta> list = new ArrayList<>();
 
         int startIndex = 0;
@@ -33,7 +34,9 @@ public final class AppUtils {
 
             for (int i=startIndex; i<entryList.size(); i++) {
 
-                Gs$cell cell = entryList.get(i).getGs$cell();
+                CellEntry entry = entryList.get(i);
+                Gs$cell cell = entry.getGs$cell();
+                Content content = entry.getContent();
 
                 if(cell.getRow() > row) {
                     startIndex = i;
@@ -41,15 +44,16 @@ public final class AppUtils {
 
                 } else {
 
+                    String text = content.get$t();
                     switch (cell.getCol()) {
 
                         case 2:
-                            karyaKarta.setFullName(cell.getInputValue());
+                            karyaKarta.setFullName(text);
                             break;
 
                         case 3:
                             try {
-                                Date dob = new SimpleDateFormat("m/d/yyyy", Locale.ENGLISH).parse(cell.getInputValue());
+                                Date dob = new SimpleDateFormat("m/d/yyyy", Locale.ENGLISH).parse(text);
                                 karyaKarta.setDob(dob);
                             } catch (ParseException e) {
                                 e.printStackTrace();
@@ -57,15 +61,15 @@ public final class AppUtils {
                             break;
 
                         case 4:
-                            karyaKarta.setVillageName(cell.getInputValue());
+                            karyaKarta.setVillageName(text);
                             break;
 
                         case 7:
-                            karyaKarta.setMobileNo(cell.getInputValue());
+                            karyaKarta.setMobileNo(text);
                             break;
 
                         case 8:
-                            karyaKarta.setWhatsAppNo(cell.getInputValue());
+                            karyaKarta.setWhatsAppNo(text);
                             break;
                     }
                 }
@@ -81,4 +85,5 @@ public final class AppUtils {
 
         return list;
     }
+
 }

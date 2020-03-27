@@ -1,4 +1,4 @@
-package com.ajit.bjp.model.karyakarta;
+package com.ajit.bjp.model.corona;
 
 import com.ajit.bjp.model.Author;
 import com.ajit.bjp.model.Category;
@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class KaryaKartaFeed {
+public class CoronaFeed {
 
     @SerializedName("xmlns")
     @Expose

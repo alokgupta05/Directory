@@ -1,4 +1,4 @@
-package com.ajit.bjp.model.karyakarta;
+package com.ajit.bjp.model;
 
 import com.ajit.bjp.model.Category_;
 import com.ajit.bjp.model.Content;
@@ -12,7 +12,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class KaryaKartaEntry {
+public class CellEntry {
 
     @SerializedName("id")
     @Expose

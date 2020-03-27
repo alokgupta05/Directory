@@ -2,6 +2,7 @@ package com.ajit.bjp.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -66,6 +67,10 @@ public class KaryaKartaActivity extends AppCompatActivity {
                         setDataToAdapter(AppUtils.createKaryakartaList(exampleKarykarta.getFeed()));
                         prgCircular.setVisibility(View.GONE);
 
+                    }, throwable ->
+                    {
+                        prgCircular.setVisibility(View.GONE);
+                        Log.e(KaryaKartaActivity.class.getName(), "Unable to submit post to API." + throwable.getMessage());
                     });
         }
 
