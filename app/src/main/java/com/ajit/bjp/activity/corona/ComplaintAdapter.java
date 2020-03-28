@@ -23,6 +23,8 @@ public class ComplaintAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private List<String> mHeaders;
     private PublishSubject<String> shareContent = PublishSubject.create();
     private PublishSubject<String> whatsAppNumber = PublishSubject.create();
+    private PublishSubject<String> callNumber = PublishSubject.create();
+    private PublishSubject<String> smsNumber = PublishSubject.create();
 
     ComplaintAdapter(@NonNull List<CoronaComplaint> complaintList) {
         mComplaintList = complaintList;
@@ -66,6 +68,14 @@ public class ComplaintAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         holder.btnWhatsApp.setOnClickListener( view ->
             whatsAppNumber.onNext("+91".concat(complaint.getWhatsAppNo()))
         );
+
+        holder.btnCall.setOnClickListener( view ->
+            callNumber.onNext(complaint.getMobileNo())
+        );
+
+        holder.btnSms.setOnClickListener( view ->
+            smsNumber.onNext(complaint.getMobileNo())
+        );
     }
 
     @Override
@@ -81,11 +91,19 @@ public class ComplaintAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return whatsAppNumber;
     }
 
+    Observable<String> getCallNumber() {
+        return callNumber;
+    }
+
+    Observable<String> getSMSNumber() {
+        return smsNumber;
+    }
+
     private class CompalaintViewHolder extends RecyclerView.ViewHolder {
 
         TextView lblFullName, lblDob, lblVillage, lblGender, lblMobileNo, lblWhatsAppNo, lblWorkGist, lblComplaint, lblDepartment, lblTimeStamp;
         TextView txtFullName, txtDob, txtVillage, txtGender, txtMobileNo, txtWhatsAppNo, txtWorkGist, txtComplaint, txtDepartment, txtTimeStamp;
-        ImageButton btnShare, btnWhatsApp;
+        ImageButton btnShare, btnWhatsApp, btnCall, btnSms;
 
         CompalaintViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -114,6 +132,8 @@ public class ComplaintAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             btnShare = itemView.findViewById(R.id.btnShare);
             btnWhatsApp = itemView.findViewById(R.id.btnWhatsApp);
+            btnCall = itemView.findViewById(R.id.btnCall);
+            btnSms = itemView.findViewById(R.id.btnSms);
 
             setHeaderTexts();
         }

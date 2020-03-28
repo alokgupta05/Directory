@@ -147,16 +147,42 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_20"
             android:textStyle="bold"
-            android:textColor="@color/blue_custom"/>
+            android:textColor="@color/blue_custom"
+            android:layout_gravity="center_vertical"/>
 
-        <TextView
-            android:id="@+id/txtMobileNo"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_20"
-            android:layout_marginEnd="@dimen/dp_20"
-            android:textColor="@android:color/black"
-            android:gravity="end"/>
+            android:layout_height="wrap_content">
+
+            <ImageButton android:id="@+id/btnCall"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/ic_call_black"
+                android:background="@null"
+                android:layout_alignParentEnd="true"/>
+
+            <ImageButton android:id="@+id/btnSms"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/ic_sms_black"
+                android:background="@null"
+                android:layout_toStartOf="@+id/btnCall"/>
+
+            <TextView
+                android:id="@+id/txtMobileNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:textColor="@android:color/black"
+                android:gravity="end"
+                android:layout_toStartOf="@+id/btnSms"
+                android:layout_centerVertical="true"/>
+
+
+        </RelativeLayout>
+
+
 
     </LinearLayout>
 

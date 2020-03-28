@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -41,7 +42,6 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
     private ProgressBar prgCircular;
     private RecyclerView listView;
 
-    private static final String CORONA_COMPLAINT_DATA = "corona_complaint_data";
     public static final String COMPLAINT_HEADERS = "complaint_headers";
 
     @Override
@@ -58,7 +58,7 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
         prgCircular = findViewById(R.id.progress_circular);
         listView = findViewById(R.id.listView);
 
-        getComplaintList();
+        fetchCoronaComplaint();
     }
 
     @Override
@@ -68,13 +68,14 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
             disposable.dispose();
     }
 
-    private void getComplaintList() {
-        if(AppCache.INSTANCE.getValueOfAppCache(CORONA_COMPLAINT_DATA) != null) {
-            setAdapter((List<CoronaComplaint>) AppCache.INSTANCE.getValueOfAppCache(CORONA_COMPLAINT_DATA));
-
-        } else {
-            fetchCoronaComplaint();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     private void fetchCoronaComplaint() {
@@ -106,11 +107,19 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
         adapter.getWhatsAppNumber().subscribe( whatsAppNo ->
                 openWhatsApp(whatsAppNo)
         );
+
+        adapter.getCallNumber().subscribe( mobileNo ->
+                dialNumber(mobileNo)
+        );
+
+        adapter.getSMSNumber().subscribe( mobileNo ->
+                openSMS(mobileNo)
+        );
     }
 
     private List<CoronaComplaint> getCoronaComplaints(CoronaFeed feed) {
         List<CellEntry> entryList = feed.getEntry();
-        List<CoronaComplaint> list = new ArrayList<>();
+        List<CoronaComplaint> tempList = new ArrayList<>();
         List<String> complaintHeaders = new ArrayList<>();
 
         int startIndex = 0;
@@ -151,7 +160,7 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
                         case 1:
                             complaint.setTimeStamp(text);
                             try {
-                                Date creationDate = new SimpleDateFormat("m/d/yyyy HH:MM:SS", Locale.ENGLISH).parse(text);
+                                Date creationDate = new SimpleDateFormat("M/d/yyyy HH:mm:ss", Locale.ENGLISH).parse(text);
                                 complaint.setCreationDate(creationDate);
                             } catch (ParseException e) {
                                 e.printStackTrace();
@@ -198,16 +207,21 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
             }
 
             row++;
-            list.add(complaint);
+            tempList.add(complaint);
 
         }
 
-        Collections.sort(list, (CoronaComplaint coronaComplaint, CoronaComplaint t1) ->
+        Collections.sort(tempList, (CoronaComplaint coronaComplaint, CoronaComplaint t1) ->
                 coronaComplaint.getCreationDate().compareTo(t1.getCreationDate())
         );
 
         AppCache.INSTANCE.addToAppCache(COMPLAINT_HEADERS, complaintHeaders);
-        AppCache.INSTANCE.addToAppCache(CORONA_COMPLAINT_DATA, list);
+
+        List<CoronaComplaint> list = new ArrayList<>();
+
+        for(int i=tempList.size()-1; i>=0; i--) {
+            list.add(tempList.get(i));
+        }
 
         return list;
     }
@@ -234,5 +248,17 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
             Toast.makeText(CoronaComplaintListActivity.this, "Whatsapp app not installed in your phone", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
+    }
+
+    private void dialNumber(String mobileNo) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:".concat(mobileNo)));
+        startActivity(intent);
+    }
+
+    private void openSMS(String mobileNo) {
+        Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+        sendIntent.setData(Uri.parse("sms:".concat(mobileNo)));
+        startActivity(sendIntent);
     }
 }
