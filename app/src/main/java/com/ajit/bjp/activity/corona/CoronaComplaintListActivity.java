@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -38,9 +39,10 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
 
     private Disposable disposable;
     private APIService mAPIService;
+    private ComplaintAdapter mAdapter;
 
     private ProgressBar prgCircular;
-    private RecyclerView listView;
+
 
     public static final String COMPLAINT_HEADERS = "complaint_headers";
 
@@ -56,8 +58,12 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
         mAPIService = APIUtils.getAPIService();
 
         prgCircular = findViewById(R.id.progress_circular);
-        listView = findViewById(R.id.listView);
+        RecyclerView listView = findViewById(R.id.listView);
 
+        mAdapter = new ComplaintAdapter();
+        listView.setAdapter(mAdapter);
+
+        registerObservers();
         fetchCoronaComplaint();
     }
 
@@ -69,10 +75,20 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.corona_complaint_menu, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
                 onBackPressed();
+                return true;
+
+            case R.id.refresh:
+                fetchCoronaComplaint();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -96,23 +112,20 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
                 });
     }
 
-    private void setAdapter(List<CoronaComplaint> complaintList) {
-        ComplaintAdapter adapter = new ComplaintAdapter(complaintList);
-        listView.setAdapter(adapter);
-
-        adapter.getShareContent().subscribe( content ->
-            shareContent(content)
+    private void registerObservers() {
+        mAdapter.getShareContent().subscribe( content ->
+                shareContent(content)
         );
 
-        adapter.getWhatsAppNumber().subscribe( whatsAppNo ->
+        mAdapter.getWhatsAppNumber().subscribe( whatsAppNo ->
                 openWhatsApp(whatsAppNo)
         );
 
-        adapter.getCallNumber().subscribe( mobileNo ->
+        mAdapter.getCallNumber().subscribe( mobileNo ->
                 dialNumber(mobileNo)
         );
 
-        adapter.getSMSNumber().subscribe( mobileNo ->
+        mAdapter.getSMSNumber().subscribe( mobileNo ->
                 openSMS(mobileNo)
         );
     }
@@ -123,6 +136,8 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
         List<String> complaintHeaders = new ArrayList<>();
 
         int startIndex = 0;
+        int columns = 0;
+
         for (int i = 0; i < entryList.size(); i++) {
 
             Gs$cell cell = entryList.get(i).getGs$cell();
@@ -132,13 +147,14 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
                 break;
 
             } else {
+                columns += 1;
                 complaintHeaders.add(cell.get$t());
             }
         }
 
         int row = 2;
 
-        while (startIndex < (entryList.size() - feed.getGs$colCount().get$t())) {
+        while (startIndex < entryList.size()) {
 
             CoronaComplaint complaint = new CoronaComplaint();
 
@@ -148,7 +164,11 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
                 Gs$cell cell = entry.getGs$cell();
                 Content content = entry.getContent();
 
-                if(cell.getRow() > row) {
+                if((cell.getRow() * columns) == entryList.size() && cell.getCol() == columns) {
+                    startIndex = entryList.size();
+                    break;
+
+                } else if(cell.getRow() > row) {
                     startIndex = i;
                     break;
 
@@ -202,6 +222,10 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
                         case 10:
                             complaint.setDepartment(text);
                             break;
+
+                        case 11:
+                            complaint.setStatus(text);
+                            break;
                     }
                 }
             }
@@ -224,6 +248,10 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
         }
 
         return list;
+    }
+
+    private void setAdapter(List<CoronaComplaint> complaintList) {
+        mAdapter.setComplaintList(complaintList);
     }
 
     private void shareContent(String content) {

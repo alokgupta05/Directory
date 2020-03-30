@@ -14,6 +14,7 @@ public class CoronaComplaint {
     private String whatsAppNo; // column 8
     private String complaint; // column 9
     private String department; // column 10
+    private String status; // column 11
     private Date creationDate;
 
     public String getTimeStamp() {
@@ -94,6 +95,14 @@ public class CoronaComplaint {
 
     public void setDepartment(String department) {
         this.department = department;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Date getCreationDate() {

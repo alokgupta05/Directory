@@ -11,7 +11,9 @@ import android.widget.TextView;
 import com.ajit.bjp.R;
 import com.ajit.bjp.model.corona.CoronaComplaint;
 import com.ajit.bjp.util.AppCache;
+import com.ajit.bjp.util.AppConstants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -19,16 +21,15 @@ import io.reactivex.subjects.PublishSubject;
 
 public class ComplaintAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<CoronaComplaint> mComplaintList;
+    private List<CoronaComplaint> mComplaintList = new ArrayList<>();
     private List<String> mHeaders;
     private PublishSubject<String> shareContent = PublishSubject.create();
     private PublishSubject<String> whatsAppNumber = PublishSubject.create();
     private PublishSubject<String> callNumber = PublishSubject.create();
     private PublishSubject<String> smsNumber = PublishSubject.create();
 
-    ComplaintAdapter(@NonNull List<CoronaComplaint> complaintList) {
-        mComplaintList = complaintList;
-        mHeaders = (List<String>) AppCache.INSTANCE.getValueOfAppCache(CoronaComplaintListActivity.COMPLAINT_HEADERS);
+    ComplaintAdapter() {
+
     }
 
     @NonNull
@@ -44,6 +45,8 @@ public class ComplaintAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         CoronaComplaint complaint = mComplaintList.get(i);
 
+        String no = ""+(i+1);
+        holder.lblSrNo.setText("Sr. No. : ".concat(no));
         holder.txtFullName.setText(complaint.getFullName());
         holder.txtDob.setText(complaint.getDob());
         holder.txtVillage.setText(complaint.getVillage());
@@ -54,6 +57,18 @@ public class ComplaintAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         holder.txtComplaint.setText(complaint.getComplaint());
         holder.txtDepartment.setText(complaint.getDepartment());
         holder.txtTimeStamp.setText(complaint.getTimeStamp());
+
+        if(complaint.getStatus() != null) {
+            holder.txtStatus.setText(complaint.getStatus());
+            if(complaint.getStatus().trim().equalsIgnoreCase(AppConstants.PENDING_TAG)) {
+                holder.txtStatus.setTextColor(holder.itemView.getResources().getColor(R.color.red, null));
+            } else {
+                holder.txtStatus.setTextColor(holder.itemView.getResources().getColor(R.color.green, null));
+            }
+        } else {
+            holder.txtStatus.setText(AppConstants.PENDING_TAG);
+            holder.txtStatus.setTextColor(holder.itemView.getResources().getColor(R.color.red, null));
+        }
 
         holder.btnShare.setOnClickListener(view -> {
             String content = mHeaders.get(1).concat(" -> ").concat(complaint.getFullName())
@@ -70,17 +85,27 @@ public class ComplaintAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         );
 
         holder.btnCall.setOnClickListener( view ->
-            callNumber.onNext(complaint.getMobileNo())
+            callNumber.onNext("+91".concat(complaint.getMobileNo()))
         );
 
         holder.btnSms.setOnClickListener( view ->
-            smsNumber.onNext(complaint.getMobileNo())
+            smsNumber.onNext("+91".concat(complaint.getMobileNo()))
         );
     }
 
     @Override
     public int getItemCount() {
         return mComplaintList.size();
+    }
+
+    void setComplaintList(@NonNull List<CoronaComplaint> complaintList) {
+        if(mHeaders == null) {
+            mHeaders = (List<String>) AppCache.INSTANCE.getValueOfAppCache(CoronaComplaintListActivity.COMPLAINT_HEADERS);
+        }
+
+        mComplaintList.clear();
+        mComplaintList.addAll(complaintList);
+        notifyDataSetChanged();
     }
 
     Observable<String> getShareContent() {
@@ -101,13 +126,14 @@ public class ComplaintAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private class CompalaintViewHolder extends RecyclerView.ViewHolder {
 
-        TextView lblFullName, lblDob, lblVillage, lblGender, lblMobileNo, lblWhatsAppNo, lblWorkGist, lblComplaint, lblDepartment, lblTimeStamp;
-        TextView txtFullName, txtDob, txtVillage, txtGender, txtMobileNo, txtWhatsAppNo, txtWorkGist, txtComplaint, txtDepartment, txtTimeStamp;
+        TextView lblSrNo, lblFullName, lblDob, lblVillage, lblGender, lblMobileNo, lblWhatsAppNo, lblWorkGist, lblComplaint, lblDepartment, lblTimeStamp, lblStatus;
+        TextView txtFullName, txtDob, txtVillage, txtGender, txtMobileNo, txtWhatsAppNo, txtWorkGist, txtComplaint, txtDepartment, txtTimeStamp, txtStatus;
         ImageButton btnShare, btnWhatsApp, btnCall, btnSms;
 
         CompalaintViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            lblSrNo = itemView.findViewById(R.id.lblSrNo);
             lblFullName = itemView.findViewById(R.id.lblFullName);
             lblDob = itemView.findViewById(R.id.lblDob);
             lblVillage = itemView.findViewById(R.id.lblVillage);
@@ -118,6 +144,7 @@ public class ComplaintAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             lblComplaint = itemView.findViewById(R.id.lblComplaint);
             lblDepartment = itemView.findViewById(R.id.lblDepartment);
             lblTimeStamp = itemView.findViewById(R.id.lblTimeStamp);
+            lblStatus = itemView.findViewById(R.id.lblStatus);
 
             txtFullName = itemView.findViewById(R.id.txtFullName);
             txtDob = itemView.findViewById(R.id.txtDob);
@@ -129,6 +156,7 @@ public class ComplaintAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             txtComplaint = itemView.findViewById(R.id.txtComplaint);
             txtDepartment = itemView.findViewById(R.id.txtDepartment);
             txtTimeStamp = itemView.findViewById(R.id.txtTimeStamp);
+            txtStatus = itemView.findViewById(R.id.txtStatus);
 
             btnShare = itemView.findViewById(R.id.btnShare);
             btnWhatsApp = itemView.findViewById(R.id.btnWhatsApp);
@@ -181,6 +209,10 @@ public class ComplaintAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                     case 9:
                         lblDepartment.setText(header);
+                        break;
+
+                    case 10:
+                        lblStatus.setText(header);
                         break;
                 }
             }

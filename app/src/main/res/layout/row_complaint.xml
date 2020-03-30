@@ -4,6 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <!-- Sr. No-->
+    <TextView
+        android:id="@+id/lblSrNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginStart="@dimen/dp_20"
+        android:textStyle="bold"
+        android:textColor="@color/blue_custom"/>
+
     <!-- Time Stamp -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -182,8 +192,6 @@
 
         </RelativeLayout>
 
-
-
     </LinearLayout>
 
     <!-- WhatsApp No -->
@@ -226,8 +234,6 @@
 
         </RelativeLayout>
 
-
-
     </LinearLayout>
 
     <!-- Work Gist -->
@@ -256,32 +262,6 @@
 
     </LinearLayout>
 
-    <!-- Complaint -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/dp_20">
-
-        <TextView
-            android:id="@+id/lblComplaint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_20"
-            android:textStyle="bold"
-            android:textColor="@color/blue_custom"/>
-
-        <TextView
-            android:id="@+id/txtComplaint"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_20"
-            android:layout_marginEnd="@dimen/dp_20"
-            android:textColor="@android:color/black"
-            android:gravity="end"/>
-
-    </LinearLayout>
-
     <!-- Department -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -299,6 +279,59 @@
 
         <TextView
             android:id="@+id/txtDepartment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:textColor="@android:color/black"
+            android:gravity="end"/>
+
+    </LinearLayout>
+
+    <!-- Complaint -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/dp_20">
+
+        <TextView
+            android:id="@+id/lblComplaint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:textStyle="bold"
+            android:textColor="@color/blue_custom"/>
+
+        <TextView
+            android:id="@+id/txtComplaint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_10"
+            android:textColor="@android:color/black"
+            android:gravity="start"/>
+
+    </LinearLayout>
+
+    <!-- Status -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dp_20">
+
+        <TextView
+            android:id="@+id/lblStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:textStyle="bold"
+            android:textColor="@color/blue_custom"/>
+
+        <TextView
+            android:id="@+id/txtStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_20"
