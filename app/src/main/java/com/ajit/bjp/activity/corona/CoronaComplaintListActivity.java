@@ -136,7 +136,6 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
         List<String> complaintHeaders = new ArrayList<>();
 
         int startIndex = 0;
-        int columns = 0;
 
         for (int i = 0; i < entryList.size(); i++) {
 
@@ -147,14 +146,14 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
                 break;
 
             } else {
-                columns += 1;
                 complaintHeaders.add(cell.get$t());
             }
         }
 
         int row = 2;
+        int entries = complaintHeaders.size();
 
-        while (startIndex < entryList.size()) {
+        while (entries < entryList.size()) {
 
             CoronaComplaint complaint = new CoronaComplaint();
 
@@ -164,17 +163,15 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
                 Gs$cell cell = entry.getGs$cell();
                 Content content = entry.getContent();
 
-                if((cell.getRow() * columns) == entryList.size() && cell.getCol() == columns) {
-                    startIndex = entryList.size();
-                    break;
-
-                } else if(cell.getRow() > row) {
+                if(cell.getRow() > row) {
                     startIndex = i;
                     break;
 
                 } else {
 
                     String text = content.get$t();
+                    entries += 1;
+
                     switch (cell.getCol()) {
 
                         case 1:
@@ -230,7 +227,7 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
                 }
             }
 
-            row++;
+            row += 1;
             tempList.add(complaint);
 
         }
