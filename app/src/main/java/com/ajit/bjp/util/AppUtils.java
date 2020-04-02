@@ -18,18 +18,24 @@ public final class AppUtils {
     public static List<KaryaKarta> createKaryakartaList(KaryaKartaFeed feed) {
         List<CellEntry> entryList = feed.getEntry();
         List<KaryaKarta> list = new ArrayList<>();
+        List<String> karyakartaListHeaders = new ArrayList<>();
 
         int startIndex = 0;
         for (int i = 0; i < entryList.size(); i++) {
-            if(entryList.get(i).getGs$cell().getRow() > 1) {
+            Gs$cell cell = entryList.get(i).getGs$cell();
+
+            if(cell.getRow() > 1) {
                 startIndex = i;
                 break;
+            } else {
+                karyakartaListHeaders.add(cell.get$t());
             }
         }
 
         int row = 2;
+        int entries = karyakartaListHeaders.size();
 
-        while (startIndex < (entryList.size() - feed.getGs$colCount().get$t())) {
+        while (entries < entryList.size()) {
             KaryaKarta karyaKarta = new KaryaKarta();
 
             for (int i=startIndex; i<entryList.size(); i++) {
@@ -44,7 +50,9 @@ public final class AppUtils {
 
                 } else {
 
+                    entries += 1;
                     String text = content.get$t();
+
                     switch (cell.getCol()) {
 
                         case 2:
@@ -53,7 +61,7 @@ public final class AppUtils {
 
                         case 3:
                             try {
-                                Date dob = new SimpleDateFormat("m/d/yyyy", Locale.ENGLISH).parse(text);
+                                Date dob = new SimpleDateFormat("M/d/yyyy", Locale.ENGLISH).parse(text);
                                 karyaKarta.setDob(dob);
                             } catch (ParseException e) {
                                 e.printStackTrace();
@@ -64,6 +72,14 @@ public final class AppUtils {
                             karyaKarta.setVillageName(text);
                             break;
 
+                        case 5:
+                            karyaKarta.setOccupation(text);
+                            break;
+
+                        case 6:
+                            karyaKarta.setBloodGroup(text);
+                            break;
+
                         case 7:
                             karyaKarta.setMobileNo(text);
                             break;
@@ -71,6 +87,27 @@ public final class AppUtils {
                         case 8:
                             karyaKarta.setWhatsAppNo(text);
                             break;
+
+                        case 9:
+                            karyaKarta.setFamilyHead(text);
+                            break;
+
+                        case 10:
+                            karyaKarta.setWadiWastiName(text);
+                            break;
+
+                        case 11:
+                            karyaKarta.setGramPanchayatWardNo(text);
+                            break;
+
+                        case 12:
+                            karyaKarta.setVidhanSabhaWardNo(text);
+                            break;
+
+                        case 14:
+                            karyaKarta.setInformation(text);
+                            break;
+
                     }
                 }
             }
@@ -82,6 +119,7 @@ public final class AppUtils {
 
         AppCache.INSTANCE.addToAppCache(AppConstants.RESPONSE_DATA_KARYAKARTA, feed);
         AppCache.INSTANCE.addToAppCache(AppConstants.KARYAKARTA_LIST, list);
+        AppCache.INSTANCE.addToAppCache(AppConstants.KARYAKARTA_LIST_HEADERS, karyakartaListHeaders);
 
         return list;
     }

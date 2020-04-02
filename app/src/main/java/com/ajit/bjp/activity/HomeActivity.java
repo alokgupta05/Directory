@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 
 import com.ajit.bjp.R;
 import com.ajit.bjp.activity.corona.CoronaComplaintListActivity;
+import com.ajit.bjp.activity.karyakarta.KaryaKartaActivity;
 import com.ajit.bjp.adapter.NavigationMenuListAdapter;
 import com.ajit.bjp.model.Example;
 import com.ajit.bjp.model.ExampleVillage;
@@ -87,7 +88,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.btnToolbarMenu).setOnClickListener( view -> {
-//            drawerLayout.openDrawer(GravityCompat.START);
+            drawerLayout.openDrawer(GravityCompat.START);
         });
 
         selectedMenuDisposable = menuListAdapter.getSelectedMenu().subscribe(

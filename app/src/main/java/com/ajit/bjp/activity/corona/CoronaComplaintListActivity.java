@@ -22,6 +22,7 @@ import com.ajit.bjp.model.corona.CoronaFeed;
 import com.ajit.bjp.network.APIService;
 import com.ajit.bjp.network.APIUtils;
 import com.ajit.bjp.util.AppCache;
+import com.ajit.bjp.util.AppConstants;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -262,28 +263,28 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
     }
 
     private void openWhatsApp(String whatsAppNo) {
-        String url = "https://api.whatsapp.com/send?phone=" + whatsAppNo;
+        String url = String.format(AppConstants.WHATSAPP_URL, whatsAppNo);
         try {
             PackageManager pm = getPackageManager();
-            pm.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES);
+            pm.getPackageInfo(AppConstants.WHATSAPP_PACKAGE, PackageManager.GET_ACTIVITIES);
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
             startActivity(i);
         } catch (PackageManager.NameNotFoundException e) {
-            Toast.makeText(CoronaComplaintListActivity.this, "Whatsapp app not installed in your phone", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CoronaComplaintListActivity.this, AppConstants.WHATSAPP_ERROR, Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }
 
     private void dialNumber(String mobileNo) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:".concat(mobileNo)));
+        intent.setData(Uri.parse(AppConstants.TELEPHONE_TAG.concat(mobileNo)));
         startActivity(intent);
     }
 
     private void openSMS(String mobileNo) {
         Intent sendIntent = new Intent(Intent.ACTION_VIEW);
-        sendIntent.setData(Uri.parse("sms:".concat(mobileNo)));
+        sendIntent.setData(Uri.parse(AppConstants.SMS_TAG.concat(mobileNo)));
         startActivity(sendIntent);
     }
 }

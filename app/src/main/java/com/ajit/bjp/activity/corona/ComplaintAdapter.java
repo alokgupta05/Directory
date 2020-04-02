@@ -45,8 +45,7 @@ public class ComplaintAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         CoronaComplaint complaint = mComplaintList.get(i);
 
-        String no = ""+(i+1);
-        holder.lblSrNo.setText("Sr. No. : ".concat(no));
+        holder.lblSrNo.setText(AppConstants.SR_NO.concat(Integer.toString(i+1)));
         holder.txtFullName.setText(complaint.getFullName());
         holder.txtDob.setText(complaint.getDob());
         holder.txtVillage.setText(complaint.getVillage());
@@ -80,17 +79,29 @@ public class ComplaintAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             shareContent.onNext(content);
         });
 
-        holder.btnWhatsApp.setOnClickListener( view ->
-            whatsAppNumber.onNext("+91".concat(complaint.getWhatsAppNo()))
-        );
+        holder.btnWhatsApp.setOnClickListener( view -> {
+            String number = complaint.getWhatsAppNo();
+            if(!number.startsWith(AppConstants.INDIA_ISD_CODE)) {
+                number = AppConstants.INDIA_ISD_CODE.concat(number);
+            }
+            whatsAppNumber.onNext(number);
+        });
 
-        holder.btnCall.setOnClickListener( view ->
-            callNumber.onNext("+91".concat(complaint.getMobileNo()))
-        );
+        holder.btnCall.setOnClickListener( view -> {
+            String number = complaint.getMobileNo();
+            if(!number.startsWith(AppConstants.INDIA_ISD_CODE)) {
+                number = AppConstants.INDIA_ISD_CODE.concat(number);
+            }
+            callNumber.onNext(number);
+        });
 
-        holder.btnSms.setOnClickListener( view ->
-            smsNumber.onNext("+91".concat(complaint.getMobileNo()))
-        );
+        holder.btnSms.setOnClickListener( view -> {
+            String number = complaint.getMobileNo();
+            if(!number.startsWith(AppConstants.INDIA_ISD_CODE)) {
+                number = AppConstants.INDIA_ISD_CODE.concat(number);
+            }
+            smsNumber.onNext(number);
+        });
     }
 
     @Override
