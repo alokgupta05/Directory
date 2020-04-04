@@ -1,16 +1,15 @@
 package com.ajit.bjp.activity.karyakarta;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.ajit.bjp.R;
 import com.ajit.bjp.adapter.KaryakarteListAdapter;
@@ -51,6 +50,26 @@ public class KaryaKartaActivity extends AppCompatActivity {
         listView.setLayoutManager(new LinearLayoutManager(this));
 
         getKaryaKartaList();
+
+        SearchView searchView = findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if (query.length() >0) {
+                    searchView.clearFocus();
+                    mAdapter.getFilter().filter(query);
+                    return true;
+                }
+                return false;
+
+            }
+
+            @Override
+            public boolean onQueryTextChange(String submitText) {
+                mAdapter.getFilter().filter(submitText);
+                return true;
+            }
+        });
     }
 
     @Override
@@ -58,6 +77,15 @@ public class KaryaKartaActivity extends AppCompatActivity {
         super.onDestroy();
         if (disposable != null && !disposable.isDisposed())
             disposable.dispose();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void getKaryaKartaList() {
@@ -94,15 +122,15 @@ public class KaryaKartaActivity extends AppCompatActivity {
 
     private void registerObservers() {
         mAdapter.getCallNumber().subscribe( mobileNo ->
-                dialNumber(mobileNo)
+                AppUtils.dialNumber(KaryaKartaActivity.this, mobileNo)
         );
 
         mAdapter.getSMSNumber().subscribe( mobileNo ->
-                openSMS(mobileNo)
+                AppUtils.openSMS(KaryaKartaActivity.this, mobileNo)
         );
 
         mAdapter.getWhatsAppNumber().subscribe( whatsAppNo ->
-                openWhatsApp(whatsAppNo)
+                AppUtils.openWhatsApp(KaryaKartaActivity.this, whatsAppNo)
         );
 
         mAdapter.getSelectedIndex().subscribe( index ->
@@ -110,34 +138,10 @@ public class KaryaKartaActivity extends AppCompatActivity {
         );
     }
 
-    private void openWhatsApp(String whatsAppNo) {
-        String url = String.format(AppConstants.WHATSAPP_URL, whatsAppNo);
-        try {
-            PackageManager pm = getPackageManager();
-            pm.getPackageInfo(AppConstants.WHATSAPP_PACKAGE, PackageManager.GET_ACTIVITIES);
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            startActivity(i);
-        } catch (PackageManager.NameNotFoundException e) {
-            Toast.makeText(KaryaKartaActivity.this, AppConstants.WHATSAPP_ERROR, Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
-        }
-    }
-
-    private void dialNumber(String mobileNo) {
-        Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse(AppConstants.TELEPHONE_TAG.concat(mobileNo)));
-        startActivity(intent);
-    }
-
-    private void openSMS(String mobileNo) {
-        Intent sendIntent = new Intent(Intent.ACTION_VIEW);
-        sendIntent.setData(Uri.parse(AppConstants.SMS_TAG.concat(mobileNo)));
-        startActivity(sendIntent);
-    }
-
     private void openKaryakartaDetailsActivity(int index) {
-
+        Intent intent = new Intent(KaryaKartaActivity.this, KaryakartaDetailsActivity.class);
+        intent.putExtra(KaryakartaDetailsActivity.SELECTED_INDEX, index);
+        startActivity(intent);
     }
 
 }

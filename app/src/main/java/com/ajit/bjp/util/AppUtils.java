@@ -1,5 +1,11 @@
 package com.ajit.bjp.util;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.widget.Toast;
+
 import com.ajit.bjp.model.CellEntry;
 import com.ajit.bjp.model.Content;
 import com.ajit.bjp.model.Gs$cell;
@@ -122,6 +128,44 @@ public final class AppUtils {
         AppCache.INSTANCE.addToAppCache(AppConstants.KARYAKARTA_LIST_HEADERS, karyakartaListHeaders);
 
         return list;
+    }
+
+    public static void openWhatsApp(Activity activity, String whatsAppNo) {
+        if(!whatsAppNo.startsWith(AppConstants.INDIA_ISD_CODE)) {
+            whatsAppNo = AppConstants.INDIA_ISD_CODE.concat(whatsAppNo);
+        }
+
+        String url = String.format(AppConstants.WHATSAPP_URL, whatsAppNo);
+        try {
+            PackageManager pm = activity.getPackageManager();
+            pm.getPackageInfo(AppConstants.WHATSAPP_PACKAGE, PackageManager.GET_ACTIVITIES);
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            activity.startActivity(i);
+        } catch (PackageManager.NameNotFoundException e) {
+            Toast.makeText(activity, AppConstants.WHATSAPP_ERROR, Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+    }
+
+    public static void dialNumber(Activity activity, String mobileNo) {
+        if(!mobileNo.startsWith(AppConstants.INDIA_ISD_CODE)) {
+            mobileNo = AppConstants.INDIA_ISD_CODE.concat(mobileNo);
+        }
+
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse(AppConstants.TELEPHONE_TAG.concat(mobileNo)));
+        activity.startActivity(intent);
+    }
+
+    public static void openSMS(Activity activity, String mobileNo) {
+        if(!mobileNo.startsWith(AppConstants.INDIA_ISD_CODE)) {
+            mobileNo = AppConstants.INDIA_ISD_CODE.concat(mobileNo);
+        }
+
+        Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+        sendIntent.setData(Uri.parse(AppConstants.SMS_TAG.concat(mobileNo)));
+        activity.startActivity(sendIntent);
     }
 
 }

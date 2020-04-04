@@ -1,8 +1,11 @@
 package com.ajit.bjp.model.karyakarta;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 
-public class KaryaKarta {
+public class KaryaKarta implements Parcelable {
 
     private String fullName; //column 2
     private Date dob; // column 3
@@ -16,6 +19,36 @@ public class KaryaKarta {
     private String gramPanchayatWardNo; // column 11
     private String vidhanSabhaWardNo; // column 12
     private String information; // column 14
+
+    public KaryaKarta() {
+
+    }
+
+    protected KaryaKarta(Parcel in) {
+        fullName = in.readString();
+        villageName = in.readString();
+        occupation = in.readString();
+        bloodGroup = in.readString();
+        mobileNo = in.readString();
+        whatsAppNo = in.readString();
+        familyHead = in.readString();
+        wadiWastiName = in.readString();
+        gramPanchayatWardNo = in.readString();
+        vidhanSabhaWardNo = in.readString();
+        information = in.readString();
+    }
+
+    public static final Creator<KaryaKarta> CREATOR = new Creator<KaryaKarta>() {
+        @Override
+        public KaryaKarta createFromParcel(Parcel in) {
+            return new KaryaKarta(in);
+        }
+
+        @Override
+        public KaryaKarta[] newArray(int size) {
+            return new KaryaKarta[size];
+        }
+    };
 
     public String getFullName() {
         return fullName;
@@ -111,5 +144,25 @@ public class KaryaKarta {
 
     public void setInformation(String information) {
         this.information = information;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(fullName);
+        parcel.writeString(villageName);
+        parcel.writeString(occupation);
+        parcel.writeString(bloodGroup);
+        parcel.writeString(mobileNo);
+        parcel.writeString(whatsAppNo);
+        parcel.writeString(familyHead);
+        parcel.writeString(wadiWastiName);
+        parcel.writeString(gramPanchayatWardNo);
+        parcel.writeString(vidhanSabhaWardNo);
+        parcel.writeString(information);
     }
 }

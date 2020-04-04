@@ -79,29 +79,17 @@ public class ComplaintAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             shareContent.onNext(content);
         });
 
-        holder.btnWhatsApp.setOnClickListener( view -> {
-            String number = complaint.getWhatsAppNo();
-            if(!number.startsWith(AppConstants.INDIA_ISD_CODE)) {
-                number = AppConstants.INDIA_ISD_CODE.concat(number);
-            }
-            whatsAppNumber.onNext(number);
-        });
+        holder.btnWhatsApp.setOnClickListener( view ->
+            whatsAppNumber.onNext(complaint.getWhatsAppNo())
+        );
 
-        holder.btnCall.setOnClickListener( view -> {
-            String number = complaint.getMobileNo();
-            if(!number.startsWith(AppConstants.INDIA_ISD_CODE)) {
-                number = AppConstants.INDIA_ISD_CODE.concat(number);
-            }
-            callNumber.onNext(number);
-        });
+        holder.btnCall.setOnClickListener( view ->
+            callNumber.onNext(complaint.getMobileNo())
+        );
 
-        holder.btnSms.setOnClickListener( view -> {
-            String number = complaint.getMobileNo();
-            if(!number.startsWith(AppConstants.INDIA_ISD_CODE)) {
-                number = AppConstants.INDIA_ISD_CODE.concat(number);
-            }
-            smsNumber.onNext(number);
-        });
+        holder.btnSms.setOnClickListener( view ->
+            smsNumber.onNext(complaint.getMobileNo())
+        );
     }
 
     @Override

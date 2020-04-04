@@ -2,9 +2,11 @@ package com.ajit.bjp.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -13,6 +15,7 @@ import com.ajit.bjp.model.karyakarta.KaryaKarta;
 import com.ajit.bjp.util.AppCache;
 import com.ajit.bjp.util.AppConstants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -21,7 +24,9 @@ import io.reactivex.subjects.PublishSubject;
 public class KaryakarteListAdapter extends RecyclerView.Adapter {
 
     private List<KaryaKarta> mKaryaKartaList;
+    private List<KaryaKarta> mFilteredList;
     private List<String> mHeaders;
+    private NameFilter mFilter;
 
     private PublishSubject<String> whatsAppNumber = PublishSubject.create();
     private PublishSubject<String> callNumber = PublishSubject.create();
@@ -30,6 +35,8 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
 
     public KaryakarteListAdapter(@NonNull List<KaryaKarta> karyaKartaList) {
         mKaryaKartaList = karyaKartaList;
+        mFilteredList = karyaKartaList;
+        mFilter = new NameFilter();
         mHeaders = (List<String>) AppCache.INSTANCE.getValueOfAppCache(AppConstants.KARYAKARTA_LIST_HEADERS);
     }
 
@@ -43,7 +50,7 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         KaryakartaViewHolder holder = (KaryakartaViewHolder) viewHolder;
-        KaryaKarta karyaKarta = mKaryaKartaList.get(i);
+        KaryaKarta karyaKarta = mFilteredList.get(i);
 
         String srNo = AppConstants.SR_NO.concat(Integer.toString(i+1));
         holder.lblSrNo.setText(srNo);
@@ -52,34 +59,30 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
         holder.txtMobileNo.setText(karyaKarta.getMobileNo());
         holder.txtWhatsAppNo.setText(karyaKarta.getWhatsAppNo());
 
-        holder.btnWhatsApp.setOnClickListener( view -> {
-            String number = karyaKarta.getWhatsAppNo();
-            if(!number.startsWith(AppConstants.INDIA_ISD_CODE)) {
-                number = AppConstants.INDIA_ISD_CODE.concat(number);
-            }
-            whatsAppNumber.onNext(number);
-        });
+        holder.btnWhatsApp.setOnClickListener( view ->
+            whatsAppNumber.onNext(karyaKarta.getWhatsAppNo())
+        );
 
-        holder.btnCall.setOnClickListener( view -> {
-            String number = karyaKarta.getMobileNo();
-            if(!number.startsWith(AppConstants.INDIA_ISD_CODE)) {
-                number = AppConstants.INDIA_ISD_CODE.concat(number);
-            }
-            callNumber.onNext(number);
-        });
+        holder.btnCall.setOnClickListener( view ->
+            callNumber.onNext(karyaKarta.getMobileNo())
+        );
 
-        holder.btnSms.setOnClickListener( view -> {
-            String number = karyaKarta.getMobileNo();
-            if(!number.startsWith(AppConstants.INDIA_ISD_CODE)) {
-                number = AppConstants.INDIA_ISD_CODE.concat(number);
-            }
-            smsNumber.onNext(number);
-        });
+        holder.btnSms.setOnClickListener( view ->
+            smsNumber.onNext(karyaKarta.getMobileNo())
+        );
+
+        holder.itemView.setOnClickListener( view ->
+            index.onNext(getSelectedIndex(karyaKarta))
+        );
     }
 
     @Override
     public int getItemCount() {
-        return mKaryaKartaList.size();
+        return mFilteredList.size();
+    }
+
+    public Filter getFilter() {
+        return mFilter;
     }
 
     public Observable<String> getWhatsAppNumber() {
@@ -95,6 +98,18 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
     }
 
     public Observable<Integer> getSelectedIndex() {
+        return index;
+    }
+
+    private int getSelectedIndex(KaryaKarta karyaKarta) {
+        int index = 0;
+        for(int i=0; i<mKaryaKartaList.size(); i++) {
+            if(mKaryaKartaList.get(i).getFullName().equals(karyaKarta.getFullName())) {
+                index = i;
+                break;
+            }
+        }
+
         return index;
     }
 
@@ -147,6 +162,38 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
                         break;
                 }
             }
+        }
+    }
+
+    private class NameFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence keyword) {
+            final FilterResults results = new FilterResults();
+
+            List<KaryaKarta> filteredList = new ArrayList<>();
+
+            if(TextUtils.isEmpty(keyword)) {
+                filteredList = mKaryaKartaList;
+
+            } else {
+                for(KaryaKarta person: mKaryaKartaList){
+                    if(person.getFullName().toLowerCase().contains(keyword.toString().toLowerCase())){
+                        filteredList.add(person);
+                    }
+                }
+            }
+
+            results.values = filteredList;
+            results.count = filteredList.size();
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            //noinspection unchecked
+            mFilteredList = (ArrayList<KaryaKarta>) filterResults.values;
+            notifyDataSetChanged();
         }
     }
 }

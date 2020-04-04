@@ -111,7 +111,6 @@
                 android:layout_toStartOf="@+id/btnSms"
                 android:layout_centerVertical="true"/>
 
-
         </RelativeLayout>
 
     </LinearLayout>
