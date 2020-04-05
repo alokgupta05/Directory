@@ -19,14 +19,30 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView android:id="@+id/txtKarykartaName"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_20"
-                android:textStyle="bold"
-                android:textColor="@color/blue_custom"
-                android:textSize="@dimen/sp_16"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_marginTop="@dimen/dp_20">
+
+                <ImageButton android:id="@+id/btnShare"
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="@dimen/dp_40"
+                    android:src="@drawable/ic_share_black"
+                    android:background="@null"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="@dimen/dp_10"/>
+
+                <TextView android:id="@+id/txtKarykartaName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/blue_custom"
+                    android:textSize="@dimen/sp_16"
+                    android:layout_toStartOf="@+id/btnShare"
+                    android:layout_centerInParent="true"
+                    android:gravity="center_horizontal"/>
+
+            </RelativeLayout>
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -402,7 +418,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/dp_20">
+                        android:layout_marginTop="@dimen/dp_20"
+                        android:layout_marginBottom="@dimen/dp_20">
 
                         <TextView
                             android:id="@+id/lblInfo"

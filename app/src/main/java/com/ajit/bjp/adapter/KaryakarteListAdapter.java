@@ -31,6 +31,7 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
     private PublishSubject<String> whatsAppNumber = PublishSubject.create();
     private PublishSubject<String> callNumber = PublishSubject.create();
     private PublishSubject<String> smsNumber = PublishSubject.create();
+    private PublishSubject<String> shareContent = PublishSubject.create();
     private PublishSubject<Integer> index = PublishSubject.create();
 
     public KaryakarteListAdapter(@NonNull List<KaryaKarta> karyaKartaList) {
@@ -52,8 +53,8 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
         KaryakartaViewHolder holder = (KaryakartaViewHolder) viewHolder;
         KaryaKarta karyaKarta = mFilteredList.get(i);
 
-        String srNo = AppConstants.SR_NO.concat(Integer.toString(i+1));
-        holder.lblSrNo.setText(srNo);
+        String srNo = Integer.toString(i+1).concat("/").concat(Integer.toString(mKaryaKartaList.size()));
+        holder.lblSrNo.setText(AppConstants.SR_NO.concat(srNo));
         holder.txtFullName.setText(karyaKarta.getFullName());
         holder.txtVillageName.setText(karyaKarta.getVillageName());
         holder.txtMobileNo.setText(karyaKarta.getMobileNo());
@@ -70,6 +71,14 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
         holder.btnSms.setOnClickListener( view ->
             smsNumber.onNext(karyaKarta.getMobileNo())
         );
+
+        holder.btnShare.setOnClickListener( view -> {
+            String content = mHeaders.get(1).concat(" -> ").concat(karyaKarta.getFullName()).concat("\n")
+                    .concat(mHeaders.get(6)).concat(" -> ").concat(karyaKarta.getMobileNo()).concat("\n")
+                    .concat(mHeaders.get(7)).concat(" -> ").concat(karyaKarta.getWhatsAppNo()).concat("\n")
+                    .concat(mHeaders.get(3)).concat(" -> ").concat(karyaKarta.getVillageName());
+            shareContent.onNext(content);
+        });
 
         holder.itemView.setOnClickListener( view ->
             index.onNext(getSelectedIndex(karyaKarta))
@@ -97,6 +106,10 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
         return smsNumber;
     }
 
+    public Observable<String> getShareContent() {
+        return shareContent;
+    }
+
     public Observable<Integer> getSelectedIndex() {
         return index;
     }
@@ -117,7 +130,7 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
 
         TextView lblSrNo, lblFullName, lblVillageName, lblMobileNo, lblWhatsAppNo;
         TextView txtFullName, txtVillageName, txtMobileNo, txtWhatsAppNo;
-        ImageButton btnCall, btnSms, btnWhatsApp;
+        ImageButton btnCall, btnSms, btnWhatsApp, btnShare;
 
         KaryakartaViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -136,6 +149,7 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
             btnCall = itemView.findViewById(R.id.btnCall);
             btnSms = itemView.findViewById(R.id.btnSms);
             btnWhatsApp = itemView.findViewById(R.id.btnWhatsApp);
+            btnShare = itemView.findViewById(R.id.btnShare);
 
             setHeaderTexts();
         }

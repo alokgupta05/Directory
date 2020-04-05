@@ -1,5 +1,6 @@
 package com.ajit.bjp.activity.corona;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -45,7 +46,8 @@ public class ComplaintAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         CoronaComplaint complaint = mComplaintList.get(i);
 
-        holder.lblSrNo.setText(AppConstants.SR_NO.concat(Integer.toString(i+1)));
+        String srNo = Integer.toString(i+1).concat("/").concat(Integer.toString(mComplaintList.size()));
+        holder.lblSrNo.setText(AppConstants.SR_NO.concat(srNo));
         holder.txtFullName.setText(complaint.getFullName());
         holder.txtDob.setText(complaint.getDob());
         holder.txtVillage.setText(complaint.getVillage());

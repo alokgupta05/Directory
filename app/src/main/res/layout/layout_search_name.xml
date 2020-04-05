@@ -1,37 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ProgressBar
-        android:id="@+id/progress_circular"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_centerInParent="true"/>
-
-    <LinearLayout android:orientation="vertical"
-        android:layout_width="match_parent"
+    <RelativeLayout android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.SearchView
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_centerInParent="true"/>
+
+        <LinearLayout android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:queryHint="Enter Name"
-            app:iconifiedByDefault="false"
-            android:id="@+id/search_view"
-            app:searchIcon="@drawable/transfer_search_grey_16dp"
-            app:closeIcon="@drawable/cross_search"
-            app:queryBackground="@android:color/transparent"
-            android:background="@drawable/rounded_corner_edittext_white"/>
+            android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/list_view_name"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+            <android.support.v7.widget.SearchView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:queryHint="Enter Name"
+                app:iconifiedByDefault="false"
+                android:id="@+id/search_view"
+                app:searchIcon="@drawable/transfer_search_grey_16dp"
+                app:closeIcon="@drawable/cross_search"
+                app:queryBackground="@android:color/transparent"
+                android:background="@drawable/rounded_corner_edittext_white"/>
 
-    </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list_view_name"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
-</RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/bottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:layout_behavior="@string/bottom_sheet_behavior"/>
+
+</android.support.design.widget.CoordinatorLayout>
+

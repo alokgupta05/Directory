@@ -117,5 +117,13 @@ public class KarykartaItemFragment extends Fragment {
             AppUtils.openWhatsApp(mActivity, number);
         });
 
+        view.findViewById(R.id.btnShare).setOnClickListener(view1 -> {
+            String content = mHeaders.get(1).concat(" -> ").concat(mKaryaKarta.getFullName()).concat("\n")
+                    .concat(mHeaders.get(6)).concat(" -> ").concat(mKaryaKarta.getMobileNo()).concat("\n")
+                    .concat(mHeaders.get(7)).concat(" -> ").concat(mKaryaKarta.getWhatsAppNo()).concat("\n")
+                    .concat(mHeaders.get(3)).concat(" -> ").concat(mKaryaKarta.getVillageName());
+            AppUtils.shareContent(mActivity, content);
+        });
+
     }
 }

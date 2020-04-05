@@ -24,7 +24,7 @@ public class KaryaKarta implements Parcelable {
 
     }
 
-    protected KaryaKarta(Parcel in) {
+    private KaryaKarta(Parcel in) {
         fullName = in.readString();
         villageName = in.readString();
         occupation = in.readString();

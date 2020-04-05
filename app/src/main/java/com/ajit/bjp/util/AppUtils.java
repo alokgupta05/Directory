@@ -168,4 +168,14 @@ public final class AppUtils {
         activity.startActivity(sendIntent);
     }
 
+    public static void shareContent(Activity activity, String content) {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, content);
+        sendIntent.setType("text/plain");
+
+        Intent shareIntent = Intent.createChooser(sendIntent, null);
+        activity.startActivity(shareIntent);
+    }
+
 }

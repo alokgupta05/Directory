@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/menuRefresh"
-        android:title="Refresh"
-        android:icon="@drawable/ic_refresh_white"
+    <item android:id="@+id/menuSearch"
+        android:title="Search"
+        android:icon="@drawable/ic_search_white"
         app:showAsAction="always"/>
 
 </menu>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/dp_30">
+
+    <ImageView
+        android:id="@+id/downArrowImage"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_60"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/dp_14"
+        android:src="@drawable/ic_arrow_blue_down" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/downArrowImage"
+        android:layout_above="@+id/btnSearch"
+        android:padding="@dimen/dp_40"
+        android:gravity="center_vertical">
+
+        <TextView android:id="@+id/lblVillage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/sky_blue"/>
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/villageSelector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"/>
+
+        <TextView android:id="@+id/lblBloodGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/sky_blue"
+            android:layout_marginTop="@dimen/dp_30"/>
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/bloodGroupSelector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"/>
+
+        <TextView android:id="@+id/lblGramPanchayatWardNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/sky_blue"
+            android:layout_marginTop="@dimen/dp_30"/>
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/gramPanchayatSelector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"/>
+
+        <TextView android:id="@+id/lblVidhanSabhaWardNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/sky_blue"
+            android:layout_marginTop="@dimen/dp_30"/>
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/vidhanSabhaSelector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"/>
+
+    </LinearLayout>
+
+    <Button android:id="@+id/btnSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="Search"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginEnd="@dimen/dp_20"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

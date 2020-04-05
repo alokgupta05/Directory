@@ -1,8 +1,5 @@
 package com.ajit.bjp.activity.corona;
 
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.ajit.bjp.R;
 import com.ajit.bjp.model.CellEntry;
@@ -22,7 +18,6 @@ import com.ajit.bjp.model.corona.CoronaFeed;
 import com.ajit.bjp.network.APIService;
 import com.ajit.bjp.network.APIUtils;
 import com.ajit.bjp.util.AppCache;
-import com.ajit.bjp.util.AppConstants;
 import com.ajit.bjp.util.AppUtils;
 
 import java.text.ParseException;
@@ -89,7 +84,7 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
                 onBackPressed();
                 return true;
 
-            case R.id.refresh:
+            case R.id.menuRefresh:
                 fetchCoronaComplaint();
                 return true;
         }
@@ -116,7 +111,7 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
 
     private void registerObservers() {
         mAdapter.getShareContent().subscribe( content ->
-                shareContent(content)
+                AppUtils.shareContent(CoronaComplaintListActivity.this, content)
         );
 
         mAdapter.getWhatsAppNumber().subscribe( whatsAppNo ->
@@ -251,16 +246,6 @@ public class CoronaComplaintListActivity extends AppCompatActivity {
 
     private void setAdapter(List<CoronaComplaint> complaintList) {
         mAdapter.setComplaintList(complaintList);
-    }
-
-    private void shareContent(String content) {
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, content);
-        sendIntent.setType("text/plain");
-
-        Intent shareIntent = Intent.createChooser(sendIntent, null);
-        startActivity(shareIntent);
     }
 
 }
