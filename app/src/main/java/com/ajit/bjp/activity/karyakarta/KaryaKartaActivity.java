@@ -9,12 +9,14 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ProgressBar;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -192,48 +194,53 @@ public class KaryaKartaActivity extends AppCompatActivity {
         ((TextView)view.findViewById(R.id.lblVidhanSabhaWardNo)).setText(mHeaders.get(11));
         ((TextView)view.findViewById(R.id.lblJilaParishadGat)).setText(mHeaders.get(12));
 
-        SpinnerAdapter villageAdapter = new ArrayAdapter<>(this, R.layout.row_spinner, R.id.textview_spinner, getAllVillages());
-        AppCompatSpinner villageSelector = view.findViewById(R.id.villageSelector);
-        villageSelector.setAdapter(villageAdapter);
+        ArrayAdapter<String> villageAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, getAllVillages());
+        AutoCompleteTextView txtVillage = view.findViewById(R.id.txtVillage);
+        txtVillage.setAdapter(villageAdapter);
 
         SpinnerAdapter bloodGroupAdapter = new ArrayAdapter<>(this, R.layout.row_spinner, R.id.textview_spinner, getBloodGroups());
         AppCompatSpinner bloodGroupSelector = view.findViewById(R.id.bloodGroupSelector);
         bloodGroupSelector.setAdapter(bloodGroupAdapter);
 
-        SpinnerAdapter gramPanchayatAdapter = new ArrayAdapter<>(this, R.layout.row_spinner, R.id.textview_spinner, getGramPanchayatWardNos());
-        AppCompatSpinner gramPanchayatSelector = view.findViewById(R.id.gramPanchayatSelector);
-        gramPanchayatSelector.setAdapter(gramPanchayatAdapter);
+        ArrayAdapter<String> gramPanchayatAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, getGramPanchayatWardNos());
+        AutoCompleteTextView txtGramPanchayat = view.findViewById(R.id.txtGramPanchayat);
+        txtGramPanchayat.setAdapter(gramPanchayatAdapter);
 
-        SpinnerAdapter vidhanSabhaAdapter = new ArrayAdapter<>(this, R.layout.row_spinner, R.id.textview_spinner, getVidhanSabhaWardNos());
-        AppCompatSpinner vidhanSabhaSelector = view.findViewById(R.id.vidhanSabhaSelector);
-        vidhanSabhaSelector.setAdapter(vidhanSabhaAdapter);
+        ArrayAdapter<String> vidhanSabhaAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, getVidhanSabhaWardNos());
+        AutoCompleteTextView txtVidhanSabha = view.findViewById(R.id.txtVidhanSabha);
+        txtVidhanSabha.setAdapter(vidhanSabhaAdapter);
 
         SpinnerAdapter jilaParishadAdapter = new ArrayAdapter<>(this, R.layout.row_spinner, R.id.textview_spinner, getJilaParishadGats());
         AppCompatSpinner jilaParishadSelector = view.findViewById(R.id.jilaParishadSelector);
         jilaParishadSelector.setAdapter(jilaParishadAdapter);
 
         view.findViewById(R.id.btnSearch).setOnClickListener(view1 -> {
-            if(villageSelector.getSelectedItemPosition() > 0 ||
+            if(TextUtils.isEmpty(txtVillage.getText().toString().trim()) ||
                 bloodGroupSelector.getSelectedItemPosition() > 0 ||
-                gramPanchayatSelector.getSelectedItemPosition() > 0 ||
-                vidhanSabhaSelector.getSelectedItemPosition() > 0) {
+                TextUtils.isEmpty(txtGramPanchayat.getText().toString().trim()) ||
+                TextUtils.isEmpty(txtVidhanSabha.getText().toString().trim()) ||
+                jilaParishadSelector.getSelectedItemPosition() > 0) {
 
                 searchView.setQuery("", true);
                 Map<String, String> filterMap = new HashMap<>();
-                if(villageSelector.getSelectedItemPosition() > 0) {
-                    filterMap.put(KaryakarteListAdapter.VILLAGE_FILTER, villageSelector.getSelectedItem().toString());
+                if(!TextUtils.isEmpty(txtVillage.getText().toString().trim())) {
+                    filterMap.put(KaryakarteListAdapter.VILLAGE_FILTER, txtVillage.getText().toString().trim());
                 }
 
                 if(bloodGroupSelector.getSelectedItemPosition() > 0) {
                     filterMap.put(KaryakarteListAdapter.BLOOD_GROUP_FILTER, bloodGroupSelector.getSelectedItem().toString());
                 }
 
-                if(gramPanchayatSelector.getSelectedItemPosition() > 0) {
-                    filterMap.put(KaryakarteListAdapter.GRAM_PANCHAYAT_FILTER, gramPanchayatSelector.getSelectedItem().toString());
+                if(!TextUtils.isEmpty(txtGramPanchayat.getText().toString().trim())) {
+                    filterMap.put(KaryakarteListAdapter.GRAM_PANCHAYAT_FILTER, txtGramPanchayat.getText().toString().trim());
                 }
 
-                if(vidhanSabhaSelector.getSelectedItemPosition() > 0) {
-                    filterMap.put(KaryakarteListAdapter.VIDHAN_SABHA_FILTER, vidhanSabhaSelector.getSelectedItem().toString());
+                if(!TextUtils.isEmpty(txtVidhanSabha.getText().toString().trim())) {
+                    filterMap.put(KaryakarteListAdapter.VIDHAN_SABHA_FILTER, txtVidhanSabha.getText().toString().trim());
+                }
+
+                if(jilaParishadSelector.getSelectedItemPosition() > 0) {
+                    filterMap.put(KaryakarteListAdapter.JILA_PARISHAD_FILTER, jilaParishadSelector.getSelectedItem().toString());
                 }
 
                 bottomSheetDialogFragment.collapseAndDismissFragment();

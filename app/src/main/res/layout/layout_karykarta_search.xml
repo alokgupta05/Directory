@@ -29,10 +29,11 @@
             android:layout_height="wrap_content"
             android:textColor="@color/sky_blue"/>
 
-        <android.support.v7.widget.AppCompatSpinner
-            android:id="@+id/villageSelector"
+        <AutoCompleteTextView
+            android:id="@+id/txtVillage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Enter village name"
             android:layout_marginTop="@dimen/dp_5"/>
 
         <TextView android:id="@+id/lblBloodGroup"
@@ -53,10 +54,11 @@
             android:textColor="@color/sky_blue"
             android:layout_marginTop="@dimen/dp_30"/>
 
-        <android.support.v7.widget.AppCompatSpinner
-            android:id="@+id/gramPanchayatSelector"
+        <AutoCompleteTextView
+            android:id="@+id/txtGramPanchayat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Enter gram panchayat"
             android:layout_marginTop="@dimen/dp_5"/>
 
         <TextView android:id="@+id/lblVidhanSabhaWardNo"
@@ -65,10 +67,11 @@
             android:textColor="@color/sky_blue"
             android:layout_marginTop="@dimen/dp_30"/>
 
-        <android.support.v7.widget.AppCompatSpinner
-            android:id="@+id/vidhanSabhaSelector"
+        <AutoCompleteTextView
+            android:id="@+id/txtVidhanSabha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Enter Vidhan Sabha"
             android:layout_marginTop="@dimen/dp_5"/>
 
         <TextView android:id="@+id/lblJilaParishadGat"
