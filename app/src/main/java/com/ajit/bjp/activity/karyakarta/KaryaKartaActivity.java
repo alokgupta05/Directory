@@ -190,6 +190,7 @@ public class KaryaKartaActivity extends AppCompatActivity {
         ((TextView)view.findViewById(R.id.lblBloodGroup)).setText(mHeaders.get(5));
         ((TextView)view.findViewById(R.id.lblGramPanchayatWardNo)).setText(mHeaders.get(10));
         ((TextView)view.findViewById(R.id.lblVidhanSabhaWardNo)).setText(mHeaders.get(11));
+        ((TextView)view.findViewById(R.id.lblJilaParishadGat)).setText(mHeaders.get(12));
 
         SpinnerAdapter villageAdapter = new ArrayAdapter<>(this, R.layout.row_spinner, R.id.textview_spinner, getAllVillages());
         AppCompatSpinner villageSelector = view.findViewById(R.id.villageSelector);
@@ -206,6 +207,10 @@ public class KaryaKartaActivity extends AppCompatActivity {
         SpinnerAdapter vidhanSabhaAdapter = new ArrayAdapter<>(this, R.layout.row_spinner, R.id.textview_spinner, getVidhanSabhaWardNos());
         AppCompatSpinner vidhanSabhaSelector = view.findViewById(R.id.vidhanSabhaSelector);
         vidhanSabhaSelector.setAdapter(vidhanSabhaAdapter);
+
+        SpinnerAdapter jilaParishadAdapter = new ArrayAdapter<>(this, R.layout.row_spinner, R.id.textview_spinner, getJilaParishadGats());
+        AppCompatSpinner jilaParishadSelector = view.findViewById(R.id.jilaParishadSelector);
+        jilaParishadSelector.setAdapter(jilaParishadAdapter);
 
         view.findViewById(R.id.btnSearch).setOnClickListener(view1 -> {
             if(villageSelector.getSelectedItemPosition() > 0 ||
@@ -295,6 +300,20 @@ public class KaryaKartaActivity extends AppCompatActivity {
         vidhanSabhas.addAll(setVidhanSabha);
 
         return vidhanSabhas;
+    }
+
+    private List<String> getJilaParishadGats() {
+        Set<String> setJilaParishad = new HashSet<>();
+
+        for (KaryaKarta karyaKarta : mKaryakartaList) {
+            setJilaParishad.add(karyaKarta.getJilaParishadGat());
+        }
+
+        List<String> jilaParishads = new ArrayList<>();
+        jilaParishads.add(AppConstants.SELECT);
+        jilaParishads.addAll(setJilaParishad);
+
+        return jilaParishads;
     }
 
     private void pushSelectFullScreenDialog(CustomBottomSheetDialog bottomSheetDialogFragment) {

@@ -90,6 +90,9 @@ public class KarykartaItemFragment extends Fragment {
         ((TextView)view.findViewById(R.id.lblVidhanSabhaWardNo)).setText(mHeaders.get(11));
         ((TextView)view.findViewById(R.id.txtVidhanSabhaWardNo)).setText(mKaryaKarta.getVidhanSabhaWardNo());
 
+        ((TextView)view.findViewById(R.id.lblJilaParishadGat)).setText(mHeaders.get(12));
+        ((TextView)view.findViewById(R.id.txtJilaParishadGat)).setText(mKaryaKarta.getJilaParishadGat());
+
         ((TextView)view.findViewById(R.id.lblInfo)).setText(mHeaders.get(13));
         ((TextView)view.findViewById(R.id.txtInfo)).setText(mKaryaKarta.getInformation());
 

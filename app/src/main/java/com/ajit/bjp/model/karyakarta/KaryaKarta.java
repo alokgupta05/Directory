@@ -18,6 +18,7 @@ public class KaryaKarta implements Parcelable {
     private String wadiWastiName; // column 10
     private String gramPanchayatWardNo; // column 11
     private String vidhanSabhaWardNo; // column 12
+    private String jilaParishadGat; // column 13
     private String information; // column 14
 
     public KaryaKarta() {
@@ -35,6 +36,7 @@ public class KaryaKarta implements Parcelable {
         wadiWastiName = in.readString();
         gramPanchayatWardNo = in.readString();
         vidhanSabhaWardNo = in.readString();
+        jilaParishadGat = in.readString();
         information = in.readString();
     }
 
@@ -138,6 +140,14 @@ public class KaryaKarta implements Parcelable {
         this.vidhanSabhaWardNo = vidhanSabhaWardNo;
     }
 
+    public String getJilaParishadGat() {
+        return jilaParishadGat;
+    }
+
+    public void setJilaParishadGat(String jilaParishadGat) {
+        this.jilaParishadGat = jilaParishadGat;
+    }
+
     public String getInformation() {
         return information;
     }
@@ -163,6 +173,7 @@ public class KaryaKarta implements Parcelable {
         parcel.writeString(wadiWastiName);
         parcel.writeString(gramPanchayatWardNo);
         parcel.writeString(vidhanSabhaWardNo);
+        parcel.writeString(jilaParishadGat);
         parcel.writeString(information);
     }
 }

@@ -29,6 +29,7 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
     public static String BLOOD_GROUP_FILTER = "blood_group_filter";
     public static String GRAM_PANCHAYAT_FILTER = "gram_panchayat_filter";
     public static String VIDHAN_SABHA_FILTER = "vidhan_sabha_filter";
+    public static String JILA_PARISHAD_FILTER = "jila_parishad_filter";
 
     private List<KaryaKarta> mKaryaKartaList;
     private List<KaryaKarta> mFilteredList;
@@ -63,7 +64,7 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
         KaryakartaViewHolder holder = (KaryakartaViewHolder) viewHolder;
         KaryaKarta karyaKarta = mFilteredList.get(i);
 
-        String srNo = Integer.toString(i+1).concat("/").concat(Integer.toString(mKaryaKartaList.size()));
+        String srNo = Integer.toString(i+1).concat("/").concat(Integer.toString(mFilteredList.size()));
         holder.lblSrNo.setText(AppConstants.SR_NO.concat(srNo));
         holder.txtFullName.setText(karyaKarta.getFullName());
         holder.txtVillageName.setText(karyaKarta.getVillageName());
@@ -309,6 +310,27 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
 
                 filteredList.clear();
                 filteredList.addAll(vidhanSabhaFilterList);
+            }
+
+            if(mSearchMap.containsKey(JILA_PARISHAD_FILTER)) {
+                String jilaParishad = mSearchMap.get(JILA_PARISHAD_FILTER);
+                List<KaryaKarta> jilaParishadFilterList = new ArrayList<>();
+                List<KaryaKarta> tempList = new ArrayList<>();
+
+                if(filteredList.isEmpty()) {
+                    tempList.addAll(mKaryaKartaList);
+                } else {
+                    tempList.addAll(filteredList);
+                }
+
+                for (KaryaKarta person : tempList) {
+                    if (person.getVidhanSabhaWardNo().equals(jilaParishad)) {
+                        jilaParishadFilterList.add(person);
+                    }
+                }
+
+                filteredList.clear();
+                filteredList.addAll(jilaParishadFilterList);
             }
 
             results.values = filteredList;

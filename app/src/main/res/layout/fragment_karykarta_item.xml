@@ -413,6 +413,38 @@
                         android:layout_marginTop="@dimen/dp_10"
                         android:background="@android:color/darker_gray"/>
 
+                    <!-- Jila Parishad Gat -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/dp_20">
+
+                        <TextView
+                            android:id="@+id/lblJilaParishadGat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_20"
+                            android:textStyle="bold"
+                            android:textColor="@color/blue_custom"/>
+
+                        <TextView
+                            android:id="@+id/txtJilaParishadGat"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_20"
+                            android:layout_marginEnd="@dimen/dp_20"
+                            android:textColor="@android:color/black"
+                            android:gravity="end"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:background="@android:color/darker_gray"/>
+
                     <!-- Information -->
                     <LinearLayout
                         android:layout_width="match_parent"

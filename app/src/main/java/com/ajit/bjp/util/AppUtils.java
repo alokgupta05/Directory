@@ -110,6 +110,10 @@ public final class AppUtils {
                             karyaKarta.setVidhanSabhaWardNo(text);
                             break;
 
+                        case 13:
+                            karyaKarta.setJilaParishadGat(text);
+                            break;
+
                         case 14:
                             karyaKarta.setInformation(text);
                             break;
