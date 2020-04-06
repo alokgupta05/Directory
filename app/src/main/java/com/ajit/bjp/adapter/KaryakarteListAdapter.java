@@ -16,17 +16,25 @@ import com.ajit.bjp.util.AppCache;
 import com.ajit.bjp.util.AppConstants;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
 public class KaryakarteListAdapter extends RecyclerView.Adapter {
 
+    public static String VILLAGE_FILTER = "village_filter";
+    public static String BLOOD_GROUP_FILTER = "blood_group_filter";
+    public static String GRAM_PANCHAYAT_FILTER = "gram_panchayat_filter";
+    public static String VIDHAN_SABHA_FILTER = "vidhan_sabha_filter";
+
     private List<KaryaKarta> mKaryaKartaList;
     private List<KaryaKarta> mFilteredList;
     private List<String> mHeaders;
-    private NameFilter mFilter;
+    private NameFilter mNameFilter;
+    private SearchFilter mSearchFilter;
 
     private PublishSubject<String> whatsAppNumber = PublishSubject.create();
     private PublishSubject<String> callNumber = PublishSubject.create();
@@ -37,7 +45,9 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
     public KaryakarteListAdapter(@NonNull List<KaryaKarta> karyaKartaList) {
         mKaryaKartaList = karyaKartaList;
         mFilteredList = karyaKartaList;
-        mFilter = new NameFilter();
+        mNameFilter = new NameFilter();
+        mSearchFilter = new SearchFilter();
+
         mHeaders = (List<String>) AppCache.INSTANCE.getValueOfAppCache(AppConstants.KARYAKARTA_LIST_HEADERS);
     }
 
@@ -91,7 +101,12 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
     }
 
     public Filter getFilter() {
-        return mFilter;
+        return mNameFilter;
+    }
+
+    public void searchKaryakarta(@NonNull Map<String, String> searchMap) {
+        mSearchFilter.searchFilter(searchMap);
+        mSearchFilter.filter("");
     }
 
     public Observable<String> getWhatsAppNumber() {
@@ -208,6 +223,109 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
             //noinspection unchecked
             mFilteredList = (ArrayList<KaryaKarta>) filterResults.values;
             notifyDataSetChanged();
+        }
+    }
+
+    private class SearchFilter extends Filter {
+
+        private Map<String, String> mSearchMap;
+
+        SearchFilter() {
+            mSearchMap = new HashMap<>();
+        }
+
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            final FilterResults results = new FilterResults();
+            List<KaryaKarta> filteredList = new ArrayList<>();
+
+            if(mSearchMap.containsKey(VILLAGE_FILTER)) {
+                String village = mSearchMap.get(VILLAGE_FILTER);
+                for (KaryaKarta person : mKaryaKartaList) {
+                    if(person.getVillageName().equals(village)) {
+                        filteredList.add(person);
+                    }
+                }
+            }
+
+            if(mSearchMap.containsKey(BLOOD_GROUP_FILTER)) {
+                String bloodGroup = mSearchMap.get(BLOOD_GROUP_FILTER);
+                List<KaryaKarta> bloodGrpFilterList = new ArrayList<>();
+                List<KaryaKarta> tempList = new ArrayList<>();
+
+                if(filteredList.isEmpty()) {
+                    tempList.addAll(mKaryaKartaList);
+                } else {
+                    tempList.addAll(filteredList);
+                }
+
+                for (KaryaKarta person : tempList) {
+                    if (person.getBloodGroup().equals(bloodGroup)) {
+                        bloodGrpFilterList.add(person);
+                    }
+                }
+
+                filteredList.clear();
+                filteredList.addAll(bloodGrpFilterList);
+            }
+
+            if(mSearchMap.containsKey(GRAM_PANCHAYAT_FILTER)) {
+                String gramPanchayat = mSearchMap.get(GRAM_PANCHAYAT_FILTER);
+                List<KaryaKarta> gramPanchayatFilterList = new ArrayList<>();
+                List<KaryaKarta> tempList = new ArrayList<>();
+
+                if(filteredList.isEmpty()) {
+                    tempList.addAll(mKaryaKartaList);
+                } else {
+                    tempList.addAll(filteredList);
+                }
+
+                for (KaryaKarta person : tempList) {
+                    if (person.getGramPanchayatWardNo().equals(gramPanchayat)) {
+                        gramPanchayatFilterList.add(person);
+                    }
+                }
+
+                filteredList.clear();
+                filteredList.addAll(gramPanchayatFilterList);
+            }
+
+            if(mSearchMap.containsKey(VIDHAN_SABHA_FILTER)) {
+                String vidhanSabha = mSearchMap.get(VIDHAN_SABHA_FILTER);
+                List<KaryaKarta> vidhanSabhaFilterList = new ArrayList<>();
+                List<KaryaKarta> tempList = new ArrayList<>();
+
+                if(filteredList.isEmpty()) {
+                    tempList.addAll(mKaryaKartaList);
+                } else {
+                    tempList.addAll(filteredList);
+                }
+
+                for (KaryaKarta person : tempList) {
+                    if (person.getVidhanSabhaWardNo().equals(vidhanSabha)) {
+                        vidhanSabhaFilterList.add(person);
+                    }
+                }
+
+                filteredList.clear();
+                filteredList.addAll(vidhanSabhaFilterList);
+            }
+
+            results.values = filteredList;
+            results.count = filteredList.size();
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            //noinspection unchecked
+            mFilteredList = (ArrayList<KaryaKarta>) filterResults.values;
+            notifyDataSetChanged();
+        }
+
+        void searchFilter(@NonNull Map<String, String> searchMap) {
+            mSearchMap.clear();
+            mSearchMap.putAll(searchMap);
         }
     }
 }

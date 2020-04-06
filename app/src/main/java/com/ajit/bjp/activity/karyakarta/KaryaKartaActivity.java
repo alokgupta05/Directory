@@ -30,8 +30,10 @@ import com.ajit.bjp.util.AppConstants;
 import com.ajit.bjp.util.AppUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -45,6 +47,7 @@ public class KaryaKartaActivity extends AppCompatActivity {
 
     private ProgressBar prgCircular;
     private RecyclerView listView;
+    private SearchView searchView;
     private KaryakarteListAdapter mAdapter;
     private List<String> mHeaders;
     private List<KaryaKarta> mKaryakartaList;
@@ -65,7 +68,7 @@ public class KaryaKartaActivity extends AppCompatActivity {
 
         getKaryaKartaList();
 
-        SearchView searchView = findViewById(R.id.search_view);
+        searchView = findViewById(R.id.search_view);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -210,7 +213,26 @@ public class KaryaKartaActivity extends AppCompatActivity {
                 gramPanchayatSelector.getSelectedItemPosition() > 0 ||
                 vidhanSabhaSelector.getSelectedItemPosition() > 0) {
 
+                searchView.setQuery("", true);
+                Map<String, String> filterMap = new HashMap<>();
+                if(villageSelector.getSelectedItemPosition() > 0) {
+                    filterMap.put(KaryakarteListAdapter.VILLAGE_FILTER, villageSelector.getSelectedItem().toString());
+                }
+
+                if(bloodGroupSelector.getSelectedItemPosition() > 0) {
+                    filterMap.put(KaryakarteListAdapter.BLOOD_GROUP_FILTER, bloodGroupSelector.getSelectedItem().toString());
+                }
+
+                if(gramPanchayatSelector.getSelectedItemPosition() > 0) {
+                    filterMap.put(KaryakarteListAdapter.GRAM_PANCHAYAT_FILTER, gramPanchayatSelector.getSelectedItem().toString());
+                }
+
+                if(vidhanSabhaSelector.getSelectedItemPosition() > 0) {
+                    filterMap.put(KaryakarteListAdapter.VIDHAN_SABHA_FILTER, vidhanSabhaSelector.getSelectedItem().toString());
+                }
+
                 bottomSheetDialogFragment.collapseAndDismissFragment();
+                mAdapter.searchKaryakarta(filterMap);
             }
 
         });
