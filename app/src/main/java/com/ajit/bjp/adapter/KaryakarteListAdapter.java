@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.Filter;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -33,9 +34,11 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
 
     private List<KaryaKarta> mKaryaKartaList;
     private List<KaryaKarta> mFilteredList;
+    private List<KaryaKarta> mSharingList;
     private List<String> mHeaders;
     private NameFilter mNameFilter;
     private SearchFilter mSearchFilter;
+    private boolean mIsMultipleSharing;
 
     private PublishSubject<String> whatsAppNumber = PublishSubject.create();
     private PublishSubject<String> callNumber = PublishSubject.create();
@@ -48,6 +51,7 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
         mFilteredList = karyaKartaList;
         mNameFilter = new NameFilter();
         mSearchFilter = new SearchFilter();
+        mSharingList = new ArrayList<>();
 
         mHeaders = (List<String>) AppCache.INSTANCE.getValueOfAppCache(AppConstants.KARYAKARTA_LIST_HEADERS);
     }
@@ -71,6 +75,19 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
         holder.txtMobileNo.setText(karyaKarta.getMobileNo());
         holder.txtWhatsAppNo.setText(karyaKarta.getWhatsAppNo());
 
+        if(mIsMultipleSharing) {
+            holder.checkbox.setVisibility(View.VISIBLE);
+        } else {
+            holder.checkbox.setChecked(false);
+            holder.checkbox.setVisibility(View.GONE);
+        }
+
+        if(mSharingList.contains(karyaKarta)) {
+            holder.checkbox.setChecked(true);
+        } else {
+            holder.checkbox.setChecked(false);
+        }
+
         holder.btnWhatsApp.setOnClickListener( view ->
             whatsAppNumber.onNext(karyaKarta.getWhatsAppNo())
         );
@@ -89,6 +106,14 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
                     .concat(mHeaders.get(7)).concat(" -> ").concat(karyaKarta.getWhatsAppNo()).concat("\n")
                     .concat(mHeaders.get(3)).concat(" -> ").concat(karyaKarta.getVillageName());
             shareContent.onNext(content);
+        });
+
+        holder.checkbox.setOnClickListener( view -> {
+            if(holder.checkbox.isChecked()) {
+                mSharingList.add(karyaKarta);
+            } else {
+                mSharingList.remove(karyaKarta);
+            }
         });
 
         holder.itemView.setOnClickListener( view ->
@@ -130,6 +155,18 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
         return index;
     }
 
+    public void isMultipleSharing(boolean isMultipleSharing) {
+        mIsMultipleSharing = isMultipleSharing;
+        if(!isMultipleSharing) {
+            mSharingList.clear();
+        }
+        notifyDataSetChanged();
+    }
+
+    public List<KaryaKarta> getSharingList() {
+        return mSharingList;
+    }
+
     private int getSelectedIndex(KaryaKarta karyaKarta) {
         int index = 0;
         for(int i=0; i<mKaryaKartaList.size(); i++) {
@@ -147,6 +184,7 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
         TextView lblSrNo, lblFullName, lblVillageName, lblMobileNo, lblWhatsAppNo;
         TextView txtFullName, txtVillageName, txtMobileNo, txtWhatsAppNo;
         ImageButton btnCall, btnSms, btnWhatsApp, btnShare;
+        CheckBox checkbox;
 
         KaryakartaViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -166,6 +204,8 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
             btnSms = itemView.findViewById(R.id.btnSms);
             btnWhatsApp = itemView.findViewById(R.id.btnWhatsApp);
             btnShare = itemView.findViewById(R.id.btnShare);
+
+            checkbox = itemView.findViewById(R.id.checkbox);
 
             setHeaderTexts();
         }

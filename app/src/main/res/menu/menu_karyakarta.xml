@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/menuCheckBox"
+        android:title="Check Box"
+        android:icon="@drawable/ic_check_box_white"
+        app:showAsAction="always"/>
+
+    <item android:id="@+id/menuSearch"
+        android:title="Search"
+        android:icon="@drawable/ic_search_white"
+        app:showAsAction="always"/>
+
+    <item android:id="@+id/menuShare"
+        android:title="Share"
+        android:icon="@drawable/ic_share_white"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/menuClose"
+        android:title="Close"
+        android:icon="@drawable/ic_close_white"
+        app:showAsAction="ifRoom"/>
+
+</menu>

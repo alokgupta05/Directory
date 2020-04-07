@@ -50,6 +50,7 @@ public class KaryaKartaActivity extends AppCompatActivity {
     private ProgressBar prgCircular;
     private RecyclerView listView;
     private SearchView searchView;
+    private Menu mMenu;
     private KaryakarteListAdapter mAdapter;
     private List<String> mHeaders;
     private List<KaryaKarta> mKaryakartaList;
@@ -100,7 +101,10 @@ public class KaryaKartaActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search, menu);
+        getMenuInflater().inflate(R.menu.menu_karyakarta, menu);
+        mMenu = menu;
+        menu.findItem(R.id.menuShare).setVisible(false);
+        menu.findItem(R.id.menuClose).setVisible(false);
         return true;
     }
 
@@ -116,6 +120,39 @@ public class KaryaKartaActivity extends AppCompatActivity {
                     openSearchOption();
                 return true;
 
+            case R.id.menuCheckBox:
+                if(mKaryakartaList != null) {
+                    mMenu.findItem(R.id.menuSearch).setVisible(false);
+                    mMenu.findItem(R.id.menuCheckBox).setVisible(false);
+                    mMenu.findItem(R.id.menuShare).setVisible(true);
+                    mMenu.findItem(R.id.menuClose).setVisible(true);
+
+                    mAdapter.isMultipleSharing(true);
+                }
+                return true;
+
+            case R.id.menuShare:
+                List<KaryaKarta> sharingList = mAdapter.getSharingList();
+                if(!sharingList.isEmpty()) {
+                    shareMultipleContacts(sharingList);
+
+                    mMenu.findItem(R.id.menuSearch).setVisible(true);
+                    mMenu.findItem(R.id.menuCheckBox).setVisible(true);
+                    mMenu.findItem(R.id.menuShare).setVisible(false);
+                    mMenu.findItem(R.id.menuClose).setVisible(false);
+
+                    mAdapter.isMultipleSharing(false);
+                }
+                return true;
+
+            case R.id.menuClose:
+                mMenu.findItem(R.id.menuSearch).setVisible(true);
+                mMenu.findItem(R.id.menuCheckBox).setVisible(true);
+                mMenu.findItem(R.id.menuShare).setVisible(false);
+                mMenu.findItem(R.id.menuClose).setVisible(false);
+
+                mAdapter.isMultipleSharing(false);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -331,6 +368,19 @@ public class KaryaKartaActivity extends AppCompatActivity {
         }
         fragmentTransaction.add(bottomSheetDialogFragment, bottomSheetDialogFragment.getFragmentTag());
         fragmentTransaction.commitAllowingStateLoss();
+    }
+
+    private void shareMultipleContacts(List<KaryaKarta> sharingList) {
+        String content = "";
+        for(int i=0; i<sharingList.size(); i++) {
+            KaryaKarta karyaKarta = sharingList.get(i);
+            content = content.concat(Integer.toString(i+1)).concat(")\n")
+                    .concat(mHeaders.get(1)).concat(" -> ").concat(karyaKarta.getFullName()).concat("\n")
+                    .concat(mHeaders.get(6)).concat(" -> ").concat(karyaKarta.getMobileNo()).concat("\n")
+                    .concat(mHeaders.get(3)).concat(" -> ").concat(karyaKarta.getVillageName()).concat("\n\n");
+        }
+
+        AppUtils.shareContent(this, content);
     }
 
 }

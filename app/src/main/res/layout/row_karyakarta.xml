@@ -172,13 +172,29 @@
 
             </LinearLayout>
 
-            <ImageButton android:id="@+id/btnShare"
-                android:layout_width="@dimen/dp_40"
-                android:layout_height="@dimen/dp_40"
-                android:src="@drawable/ic_share_black"
-                android:background="@null"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_20"
-                android:layout_gravity="end"/>
+                android:layout_marginBottom="@dimen/dp_10"
+                android:layout_gravity="end">
+
+                <CheckBox android:id="@+id/checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp_5"
+                    android:visibility="gone"/>
+
+                <ImageButton android:id="@+id/btnShare"
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="@dimen/dp_40"
+                    android:src="@drawable/ic_share_black"
+                    android:background="@null"
+                    android:layout_alignParentEnd="true"/>
+
+            </RelativeLayout>
 
         </LinearLayout>
 
