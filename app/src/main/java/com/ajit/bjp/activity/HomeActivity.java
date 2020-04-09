@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import com.ajit.bjp.R;
 import com.ajit.bjp.activity.corona.CoronaComplaintListActivity;
 import com.ajit.bjp.activity.karyakarta.KaryaKartaActivity;
+import com.ajit.bjp.activity.karyakarta.KaryakartaBirthdayActivity;
 import com.ajit.bjp.adapter.NavigationMenuListAdapter;
 import com.ajit.bjp.model.Example;
 import com.ajit.bjp.model.ExampleVillage;
@@ -156,6 +157,7 @@ public class HomeActivity extends AppCompatActivity {
                 break;
 
             case R.string.birthdays:
+                launchBirthday();
                 break;
 
             case R.string.daily_program:
@@ -179,6 +181,11 @@ public class HomeActivity extends AppCompatActivity {
 
     private void launchKaryKarta() {
         Intent intent = new Intent(HomeActivity.this, KaryaKartaActivity.class);
+        startActivity(intent);
+    }
+
+    private void launchBirthday() {
+        Intent intent = new Intent(HomeActivity.this, KaryakartaBirthdayActivity.class);
         startActivity(intent);
     }
 

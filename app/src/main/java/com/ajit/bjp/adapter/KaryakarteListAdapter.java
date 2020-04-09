@@ -101,11 +101,13 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
         );
 
         holder.btnShare.setOnClickListener( view -> {
-            String content = mHeaders.get(1).concat(" -> ").concat(karyaKarta.getFullName()).concat("\n")
-                    .concat(mHeaders.get(6)).concat(" -> ").concat(karyaKarta.getMobileNo()).concat("\n")
-                    .concat(mHeaders.get(7)).concat(" -> ").concat(karyaKarta.getWhatsAppNo()).concat("\n")
-                    .concat(mHeaders.get(3)).concat(" -> ").concat(karyaKarta.getVillageName());
-            shareContent.onNext(content);
+            if(!mIsMultipleSharing) {
+                String content = mHeaders.get(1).concat(" -> ").concat(karyaKarta.getFullName()).concat("\n")
+                        .concat(mHeaders.get(6)).concat(" -> ").concat(karyaKarta.getMobileNo()).concat("\n")
+                        .concat(mHeaders.get(7)).concat(" -> ").concat(karyaKarta.getWhatsAppNo()).concat("\n")
+                        .concat(mHeaders.get(3)).concat(" -> ").concat(karyaKarta.getVillageName());
+                shareContent.onNext(content);
+            }
         });
 
         holder.checkbox.setOnClickListener( view -> {

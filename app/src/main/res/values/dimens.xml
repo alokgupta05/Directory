@@ -2,6 +2,8 @@
 <resources>
 
     <dimen name="dp_0">0dp</dimen>
+    <dimen name="dp_0_5">0.5dp</dimen>
+    <dimen name="dp_1">1dp</dimen>
     <dimen name="dp_2">2dp</dimen>
     <dimen name="dp_4">4dp</dimen>
     <dimen name="dp_5">5dp</dimen>
@@ -13,6 +15,8 @@
     <dimen name="dp_40">40dp</dimen>
     <dimen name="dp_60">60dp</dimen>
 
+    <dimen name="sp_12">12sp</dimen>
+    <dimen name="sp_14">14sp</dimen>
     <dimen name="sp_16">16sp</dimen>
 
     <dimen name="navigation_view_max_width">200dp</dimen>

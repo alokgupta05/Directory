@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/dp_10">
+
+    <!-- Full name -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/lblFullName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/blue_custom"/>
+
+        <TextView
+            android:id="@+id/txtFullName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_5"
+            android:textColor="@android:color/black"
+            android:gravity="end"/>
+
+    </LinearLayout>
+
+    <!-- Mobile No -->
+    <LinearLayout android:id="@+id/mobileNoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/lblMobileNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/blue_custom"
+            android:layout_gravity="center_vertical"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton android:id="@+id/btnCall"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/ic_call_black"
+                android:background="@null"
+                android:layout_alignParentEnd="true"/>
+
+            <ImageButton android:id="@+id/btnSms"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/ic_sms_black"
+                android:background="@null"
+                android:layout_toStartOf="@+id/btnCall"/>
+
+            <TextView
+                android:id="@+id/txtMobileNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_5"
+                android:layout_marginEnd="@dimen/dp_5"
+                android:textColor="@android:color/black"
+                android:gravity="end"
+                android:layout_toStartOf="@+id/btnSms"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <!-- WhatsApp No -->
+    <LinearLayout android:id="@+id/whatsAppNoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/lblWhatsAppNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/blue_custom"
+            android:layout_gravity="center_vertical"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton android:id="@+id/btnWhatsApp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/ic_whatsapp_black"
+                android:background="@null"
+                android:layout_alignParentEnd="true"/>
+
+            <TextView
+                android:id="@+id/txtWhatsAppNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_5"
+                android:layout_marginEnd="@dimen/dp_5"
+                android:textColor="@android:color/black"
+                android:gravity="end"
+                android:layout_toStartOf="@+id/btnWhatsApp"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <TextView android:id="@+id/lblBirthday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginStart="@dimen/dp_10"/>
+
+    <View android:id="@+id/viewSeparator"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0_5"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="@dimen/dp_10"/>
+
+</LinearLayout>

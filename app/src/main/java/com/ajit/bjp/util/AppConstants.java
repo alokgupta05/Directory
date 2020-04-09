@@ -19,4 +19,18 @@ public class AppConstants {
 
     public static final String SELECT = "Select";
 
+    public static final String TODAY_KEY = "today";
+    public static final String RECENTS_KEY = "recents";
+    public static final String TOMORROW_KEY = "tomorrow";
+    public static final String UPCOMING_KEY = "upcoming";
+
+    public static final String TODAY_TAG = "Today";
+    public static final String RECENTS_TAG = "Recent Birthdays";
+    public static final String TOMORROW_TAG = "Tomorrow";
+    public static final String UPCOMING_TAG = "Upcoming Birthdays";
+    public static final String TODAY_BIRTHDAY_TAG = "Today, %s";
+    public static final String RECENT_BIRTHDAT_TAG = "%1s ago, %2s";
+    public static final String TOMORROW_BIRTHDAY_TAG = "Tomorrow, %s";
+    public static final String LATER_TAG = "Later in %s";
+
 }

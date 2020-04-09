@@ -69,6 +69,9 @@ public final class AppUtils {
                             try {
                                 Date dob = new SimpleDateFormat("M/d/yyyy", Locale.ENGLISH).parse(text);
                                 karyaKarta.setDob(dob);
+
+                                String dobStr = new SimpleDateFormat("M/d", Locale.ENGLISH).format(dob);
+                                karyaKarta.setBirthday(new SimpleDateFormat("M/d", Locale.ENGLISH).parse(dobStr));
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }

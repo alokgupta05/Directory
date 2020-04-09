@@ -20,6 +20,7 @@ public class KaryaKarta implements Parcelable {
     private String vidhanSabhaWardNo; // column 12
     private String jilaParishadGat; // column 13
     private String information; // column 14
+    private Date birthday;
 
     public KaryaKarta() {
 
@@ -154,6 +155,14 @@ public class KaryaKarta implements Parcelable {
 
     public void setInformation(String information) {
         this.information = information;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     @Override
