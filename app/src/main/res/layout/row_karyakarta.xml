@@ -17,17 +17,44 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent">
+            android:background="@android:color/transparent"
+            android:layout_marginBottom="@dimen/dp_10">
 
-            <!-- Sr. No-->
-            <TextView
-                android:id="@+id/lblSrNo"
-                android:layout_width="wrap_content"
+            <!-- Sr. No, Share, checkbox-->
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_20"
-                android:layout_marginStart="@dimen/dp_20"
-                android:textStyle="bold"
-                android:textColor="@color/blue_custom"/>
+                android:layout_gravity="end">
+
+                <CheckBox android:id="@+id/checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp_5"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/lblSrNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_20"
+                    android:textStyle="bold"
+                    android:textColor="@color/blue_custom"
+                    android:gravity="start"
+                    android:layout_toEndOf="@+id/checkbox"
+                    android:layout_toStartOf="@+id/btnShare"
+                    android:layout_centerVertical="true"/>
+
+                <ImageButton android:id="@+id/btnShare"
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="@dimen/dp_40"
+                    android:src="@drawable/ic_share_black"
+                    android:background="@null"
+                    android:layout_alignParentEnd="true"/>
+
+            </RelativeLayout>
 
             <!-- Full name -->
             <LinearLayout
@@ -171,30 +198,6 @@
                 </RelativeLayout>
 
             </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_20"
-                android:layout_marginBottom="@dimen/dp_10"
-                android:layout_gravity="end">
-
-                <CheckBox android:id="@+id/checkbox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/dp_5"
-                    android:visibility="gone"/>
-
-                <ImageButton android:id="@+id/btnShare"
-                    android:layout_width="@dimen/dp_40"
-                    android:layout_height="@dimen/dp_40"
-                    android:src="@drawable/ic_share_black"
-                    android:background="@null"
-                    android:layout_alignParentEnd="true"/>
-
-            </RelativeLayout>
 
         </LinearLayout>
 
