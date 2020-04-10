@@ -1,7 +1,10 @@
 package com.ajit.bjp.activity.karyakarta;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Filter;
 import android.widget.ProgressBar;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -231,7 +235,7 @@ public class KaryaKartaActivity extends AppCompatActivity {
         ((TextView)view.findViewById(R.id.lblVidhanSabhaWardNo)).setText(mHeaders.get(11));
         ((TextView)view.findViewById(R.id.lblJilaParishadGat)).setText(mHeaders.get(12));
 
-        ArrayAdapter<String> villageAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, getAllVillages());
+        ArrayAdapter<String> villageAdapter = new AutoCompleteTextAdapter(this, android.R.layout.simple_dropdown_item_1line, getAllVillages());
         AutoCompleteTextView txtVillage = view.findViewById(R.id.txtVillage);
         txtVillage.setAdapter(villageAdapter);
 
@@ -239,11 +243,11 @@ public class KaryaKartaActivity extends AppCompatActivity {
         AppCompatSpinner bloodGroupSelector = view.findViewById(R.id.bloodGroupSelector);
         bloodGroupSelector.setAdapter(bloodGroupAdapter);
 
-        ArrayAdapter<String> gramPanchayatAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, getGramPanchayatWardNos());
+        ArrayAdapter<String> gramPanchayatAdapter = new AutoCompleteTextAdapter(this, android.R.layout.simple_dropdown_item_1line, getGramPanchayatWardNos());
         AutoCompleteTextView txtGramPanchayat = view.findViewById(R.id.txtGramPanchayat);
         txtGramPanchayat.setAdapter(gramPanchayatAdapter);
 
-        ArrayAdapter<String> vidhanSabhaAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, getVidhanSabhaWardNos());
+        ArrayAdapter<String> vidhanSabhaAdapter = new AutoCompleteTextAdapter(this, android.R.layout.simple_dropdown_item_1line, getVidhanSabhaWardNos());
         AutoCompleteTextView txtVidhanSabha = view.findViewById(R.id.txtVidhanSabha);
         txtVidhanSabha.setAdapter(vidhanSabhaAdapter);
 
@@ -381,6 +385,66 @@ public class KaryaKartaActivity extends AppCompatActivity {
         }
 
         AppUtils.shareContent(this, content);
+    }
+
+    private class AutoCompleteTextAdapter extends ArrayAdapter<String> {
+
+        private List<String> mObjects;
+        private List<String> mFilteredList;
+        private SearchFilter mFilter;
+
+        public AutoCompleteTextAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<String> objects) {
+            super(context, resource, objects);
+            mObjects = objects;
+            mFilteredList = new ArrayList<>();
+            mFilter = new SearchFilter();
+        }
+
+        @Override
+        public int getCount() {
+            return mFilteredList.size();
+        }
+
+        @Override
+        public String getItem(int position) {
+            return mFilteredList.get(position);
+        }
+
+        @Override
+        @NonNull
+        public Filter getFilter() {
+            return mFilter;
+        }
+
+
+        private class SearchFilter extends Filter {
+
+            @Override
+            protected FilterResults performFiltering(CharSequence keyword) {
+                final FilterResults results = new FilterResults();
+
+                List<String> filteredList = new ArrayList<>();
+
+                if(keyword != null) {
+                    for (String text : mObjects) {
+                        if(text.toLowerCase().contains(keyword.toString().toLowerCase())) {
+                            filteredList.add(text);
+                        }
+                    }
+                }
+
+                results.values = filteredList;
+                results.count = filteredList.size();
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                //noinspection unchecked
+                mFilteredList = (ArrayList<String>) results.values;
+                notifyDataSetChanged();
+            }
+        }
     }
 
 }
