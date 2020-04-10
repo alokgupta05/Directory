@@ -92,32 +92,10 @@ public class BirthdayListAdapter extends RecyclerView.Adapter {
             List<KaryaKarta> list = mBirthdayMap.get(AppConstants.TODAY_KEY);
             LayoutInflater inflater = LayoutInflater.from(container.getContext());
             for (KaryaKarta karyaKarta : list) {
-                View view = inflater.inflate(R.layout.row_birthday_karyakarta, container, false);
-
-                ((TextView)view.findViewById(R.id.lblFullName)).setText(mHeaders.get(1));
-                ((TextView)view.findViewById(R.id.txtFullName)).setText(karyaKarta.getFullName());
-
-                ((TextView)view.findViewById(R.id.lblMobileNo)).setText(mHeaders.get(6));
-                ((TextView)view.findViewById(R.id.txtMobileNo)).setText(karyaKarta.getMobileNo());
-
-                ((TextView)view.findViewById(R.id.lblWhatsAppNo)).setText(mHeaders.get(7));
-                ((TextView)view.findViewById(R.id.txtWhatsAppNo)).setText(karyaKarta.getWhatsAppNo());
 
                 String date = new SimpleDateFormat("MMM d", Locale.ENGLISH).format(karyaKarta.getBirthday());
                 String dateStr = String.format(AppConstants.TODAY_BIRTHDAY_TAG, date);
-                ((TextView)view.findViewById(R.id.lblBirthday)).setText(dateStr);
-
-                view.findViewById(R.id.btnCall).setOnClickListener( view1 ->
-                        callNumber.onNext(karyaKarta.getMobileNo())
-                );
-
-                view.findViewById(R.id.btnSms).setOnClickListener( view1 ->
-                        smsNumber.onNext(karyaKarta.getMobileNo())
-                );
-
-                view.findViewById(R.id.btnWhatsApp).setOnClickListener( view1 ->
-                        whatsAppNumber.onNext(karyaKarta.getWhatsAppNo())
-                );
+                View view = createKaryaKartaDetailView(inflater, container, karyaKarta, dateStr, true);
 
                 container.addView(view);
             }
@@ -131,17 +109,6 @@ public class BirthdayListAdapter extends RecyclerView.Adapter {
             Calendar today = Calendar.getInstance();
 
             for (KaryaKarta karyaKarta : list) {
-                View view = inflater.inflate(R.layout.row_birthday_karyakarta, container, false);
-
-                ((TextView)view.findViewById(R.id.lblFullName)).setText(mHeaders.get(1));
-                ((TextView)view.findViewById(R.id.txtFullName)).setText(karyaKarta.getFullName());
-
-                ((TextView)view.findViewById(R.id.lblMobileNo)).setText(mHeaders.get(6));
-                ((TextView)view.findViewById(R.id.txtMobileNo)).setText(karyaKarta.getMobileNo());
-
-                ((TextView)view.findViewById(R.id.lblWhatsAppNo)).setText(mHeaders.get(7));
-                ((TextView)view.findViewById(R.id.txtWhatsAppNo)).setText(karyaKarta.getWhatsAppNo());
-
                 Date birthday = karyaKarta.getBirthday();
                 Calendar dob = Calendar.getInstance();
                 dob.setTime(birthday);
@@ -156,19 +123,7 @@ public class BirthdayListAdapter extends RecyclerView.Adapter {
                 day = Integer.toString(diff).concat(day);
                 String date = new SimpleDateFormat("MMM d", Locale.ENGLISH).format(birthday);
                 String dateStr = String.format(AppConstants.RECENT_BIRTHDAT_TAG, day, date);
-                ((TextView)view.findViewById(R.id.lblBirthday)).setText(dateStr);
-
-                view.findViewById(R.id.btnCall).setOnClickListener( view1 ->
-                        callNumber.onNext(karyaKarta.getMobileNo())
-                );
-
-                view.findViewById(R.id.btnSms).setOnClickListener( view1 ->
-                        smsNumber.onNext(karyaKarta.getMobileNo())
-                );
-
-                view.findViewById(R.id.btnWhatsApp).setOnClickListener( view1 ->
-                        whatsAppNumber.onNext(karyaKarta.getWhatsAppNo())
-                );
+                View view = createKaryaKartaDetailView(inflater, container, karyaKarta, dateStr, true);
 
                 container.addView(view);
             }
@@ -209,16 +164,8 @@ public class BirthdayListAdapter extends RecyclerView.Adapter {
 
                 }
 
-                View view = inflater.inflate(R.layout.row_birthday_karyakarta, container, false);
-
-                ((TextView)view.findViewById(R.id.lblFullName)).setText(mHeaders.get(1));
-                ((TextView)view.findViewById(R.id.txtFullName)).setText(karyaKarta.getFullName());
-
-                view.findViewById(R.id.mobileNoLayout).setVisibility(View.GONE);
-                view.findViewById(R.id.whatsAppNoLayout).setVisibility(View.GONE);
-
                 String dateStr = new SimpleDateFormat("MMM d", Locale.ENGLISH).format(karyaKarta.getBirthday());
-                ((TextView)view.findViewById(R.id.lblBirthday)).setText(dateStr);
+                View view = createKaryaKartaDetailView(inflater, container, karyaKarta, dateStr, false);
 
                 container.addView(view);
             }
@@ -240,36 +187,51 @@ public class BirthdayListAdapter extends RecyclerView.Adapter {
 
             List<KaryaKarta> list = mBirthdayMap.get(AppConstants.TOMORROW_KEY);
             for (KaryaKarta karyaKarta : list) {
-                View view = inflater.inflate(R.layout.row_birthday_karyakarta, container, false);
-
-                ((TextView)view.findViewById(R.id.lblFullName)).setText(mHeaders.get(1));
-                ((TextView)view.findViewById(R.id.txtFullName)).setText(karyaKarta.getFullName());
-
-                ((TextView)view.findViewById(R.id.lblMobileNo)).setText(mHeaders.get(6));
-                ((TextView)view.findViewById(R.id.txtMobileNo)).setText(karyaKarta.getMobileNo());
-
-                ((TextView)view.findViewById(R.id.lblWhatsAppNo)).setText(mHeaders.get(7));
-                ((TextView)view.findViewById(R.id.txtWhatsAppNo)).setText(karyaKarta.getWhatsAppNo());
-
                 String date = new SimpleDateFormat("MMM d", Locale.ENGLISH).format(karyaKarta.getBirthday());
                 String dateStr = String.format(AppConstants.TOMORROW_BIRTHDAY_TAG, date);
-                ((TextView)view.findViewById(R.id.lblBirthday)).setText(dateStr);
-
-                view.findViewById(R.id.btnCall).setOnClickListener( view1 ->
-                        callNumber.onNext(karyaKarta.getMobileNo())
-                );
-
-                view.findViewById(R.id.btnSms).setOnClickListener( view1 ->
-                        smsNumber.onNext(karyaKarta.getMobileNo())
-                );
-
-                view.findViewById(R.id.btnWhatsApp).setOnClickListener( view1 ->
-                        whatsAppNumber.onNext(karyaKarta.getWhatsAppNo())
-                );
+                View view = createKaryaKartaDetailView(inflater, container, karyaKarta, dateStr, true);
 
                 container.addView(view);
             }
         }
+    }
+
+    private View createKaryaKartaDetailView(LayoutInflater inflater, ViewGroup container, KaryaKarta karyaKarta, String dateStr, boolean isMobileNoToBeShown) {
+        View view = inflater.inflate(R.layout.row_birthday_karyakarta, container, false);
+
+        ((TextView)view.findViewById(R.id.lblFullName)).setText(mHeaders.get(1));
+        ((TextView)view.findViewById(R.id.txtFullName)).setText(karyaKarta.getFullName());
+
+        ((TextView)view.findViewById(R.id.lblVillageName)).setText(mHeaders.get(3));
+        ((TextView)view.findViewById(R.id.txtVillageName)).setText(karyaKarta.getVillageName());
+
+        if(isMobileNoToBeShown) {
+            ((TextView)view.findViewById(R.id.lblMobileNo)).setText(mHeaders.get(6));
+            ((TextView)view.findViewById(R.id.txtMobileNo)).setText(karyaKarta.getMobileNo());
+
+            ((TextView)view.findViewById(R.id.lblWhatsAppNo)).setText(mHeaders.get(7));
+            ((TextView)view.findViewById(R.id.txtWhatsAppNo)).setText(karyaKarta.getWhatsAppNo());
+
+        } else {
+            view.findViewById(R.id.mobileNoLayout).setVisibility(View.GONE);
+            view.findViewById(R.id.whatsAppNoLayout).setVisibility(View.GONE);
+        }
+
+        ((TextView)view.findViewById(R.id.lblBirthday)).setText(dateStr);
+
+        view.findViewById(R.id.btnCall).setOnClickListener( view1 ->
+                callNumber.onNext(karyaKarta.getMobileNo())
+        );
+
+        view.findViewById(R.id.btnSms).setOnClickListener( view1 ->
+                smsNumber.onNext(karyaKarta.getMobileNo())
+        );
+
+        view.findViewById(R.id.btnWhatsApp).setOnClickListener( view1 ->
+                whatsAppNumber.onNext(karyaKarta.getWhatsAppNo())
+        );
+
+        return view;
     }
 
     private String getMonth(int month) {

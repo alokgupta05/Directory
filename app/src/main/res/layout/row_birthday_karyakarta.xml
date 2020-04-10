@@ -29,6 +29,32 @@
 
     </LinearLayout>
 
+    <!-- Village name -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/lblVillageName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/blue_custom"/>
+
+        <TextView
+            android:id="@+id/txtVillageName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_5"
+            android:textColor="@android:color/black"
+            android:gravity="end"/>
+
+    </LinearLayout>
+
     <!-- Mobile No -->
     <LinearLayout android:id="@+id/mobileNoLayout"
         android:layout_width="match_parent"
