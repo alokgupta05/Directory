@@ -56,7 +56,7 @@
 
             </RelativeLayout>
 
-            <!-- Full name -->
+            <!-- Details -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,138 +64,96 @@
                 android:layout_marginTop="@dimen/dp_20">
 
                 <TextView
-                    android:id="@+id/lblFullName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_20"
-                    android:textStyle="bold"
-                    android:textColor="@color/blue_custom"/>
-
-                <TextView
-                    android:id="@+id/txtFullName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_5"
-                    android:layout_marginEnd="@dimen/dp_20"
-                    android:textColor="@android:color/black"
-                    android:gravity="end"/>
-
-            </LinearLayout>
-
-            <!-- Village name -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/dp_20">
-
-                <TextView
-                    android:id="@+id/lblVillageName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_20"
-                    android:textStyle="bold"
-                    android:textColor="@color/blue_custom"/>
-
-                <TextView
-                    android:id="@+id/txtVillageName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_5"
-                    android:layout_marginEnd="@dimen/dp_20"
-                    android:textColor="@android:color/black"
-                    android:gravity="end"/>
-
-            </LinearLayout>
-
-            <!-- Mobile No -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/dp_20">
-
-                <TextView
-                    android:id="@+id/lblMobileNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_20"
                     android:textStyle="bold"
                     android:textColor="@color/blue_custom"
-                    android:layout_gravity="center_vertical"/>
+                    android:text="Details:"/>
 
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/txtDetails"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageButton android:id="@+id/btnCall"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/ic_call_black"
-                        android:background="@null"
-                        android:layout_alignParentEnd="true"/>
-
-                    <ImageButton android:id="@+id/btnSms"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/ic_sms_black"
-                        android:background="@null"
-                        android:layout_toStartOf="@+id/btnCall"/>
-
-                    <TextView
-                        android:id="@+id/txtMobileNo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp_5"
-                        android:layout_marginEnd="@dimen/dp_5"
-                        android:textColor="@android:color/black"
-                        android:gravity="end"
-                        android:layout_toStartOf="@+id/btnSms"
-                        android:layout_centerVertical="true"/>
-
-                </RelativeLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_5"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:textColor="@android:color/black"
+                    android:gravity="start"/>
 
             </LinearLayout>
 
-            <!-- WhatsApp No -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/dp_10">
+                android:layout_marginTop="@dimen/dp_20">
 
                 <TextView
-                    android:id="@+id/lblWhatsAppNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_20"
                     android:textStyle="bold"
                     android:textColor="@color/blue_custom"
-                    android:layout_gravity="center_vertical"/>
+                    android:text="Scheme:"/>
 
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/txtScheme"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_5"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:textColor="@android:color/black"
+                    android:gravity="start"/>
 
-                    <ImageButton android:id="@+id/btnWhatsApp"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/ic_whatsapp_black"
-                        android:background="@null"
-                        android:layout_alignParentEnd="true"/>
+            </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/txtWhatsAppNo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp_5"
-                        android:layout_marginEnd="@dimen/dp_5"
-                        android:textColor="@android:color/black"
-                        android:gravity="end"
-                        android:layout_toStartOf="@+id/btnWhatsApp"
-                        android:layout_centerVertical="true"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dp_20">
 
-                </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_20"
+                    android:textStyle="bold"
+                    android:textColor="@color/blue_custom"
+                    android:text="Status:"/>
+
+                <TextView
+                    android:id="@+id/txtStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_5"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:textColor="@android:color/black"
+                    android:gravity="start"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dp_20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_20"
+                    android:textStyle="bold"
+                    android:textColor="@color/blue_custom"
+                    android:text="Sanctioned Amount:"/>
+
+                <TextView
+                    android:id="@+id/txtSanctionedAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_5"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:textColor="@android:color/black"
+                    android:gravity="start"/>
 
             </LinearLayout>
 
