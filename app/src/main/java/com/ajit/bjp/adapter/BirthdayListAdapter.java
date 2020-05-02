@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
@@ -48,25 +49,38 @@ public class BirthdayListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         BirthdayHeaderViewHolder holder = (BirthdayHeaderViewHolder) viewHolder;
+
         if(position == 0) {
             holder.rowHeader.setText(AppConstants.TODAY_TAG);
-            if(!mBirthdayMap.containsKey(AppConstants.TODAY_KEY)) {
-                holder.rowHeader.setVisibility(View.GONE);
-            } else {
+            if(mBirthdayMap.containsKey(AppConstants.TODAY_KEY)) {
+                holder.itemView.setVisibility(View.VISIBLE);
                 addTodayBirthdayViews(holder.birthdayRowContainer);
+
+            } else {
+                holder.itemView.setVisibility(View.GONE);
             }
 
         } else if(position == 1) {
             holder.rowHeader.setText(AppConstants.RECENTS_TAG);
-            if(!mBirthdayMap.containsKey(AppConstants.RECENTS_KEY)) {
-                holder.rowHeader.setVisibility(View.GONE);
-            } else {
+            if(mBirthdayMap.containsKey(AppConstants.RECENTS_KEY)) {
+                holder.itemView.setVisibility(View.VISIBLE);
                 getRecentBirthdays(holder.birthdayRowContainer);
+
+            } else {
+                holder.itemView.setVisibility(View.GONE);
             }
 
         } else if(position == 2) {
             holder.rowHeader.setText(AppConstants.UPCOMING_TAG);
-            addUpcomingBirthdayViews(holder.birthdayRowContainer);
+            if(mBirthdayMap.containsKey(AppConstants.TOMORROW_KEY) ||
+                mBirthdayMap.containsKey(AppConstants.UPCOMING_KEY)) {
+
+                holder.itemView.setVisibility(View.VISIBLE);
+                addUpcomingBirthdayViews(holder.birthdayRowContainer);
+            } else {
+                holder.itemView.setVisibility(View.GONE);
+            }
+
         }
     }
 
@@ -106,21 +120,30 @@ public class BirthdayListAdapter extends RecyclerView.Adapter {
         if(container.getChildCount() == 0) {
             LayoutInflater inflater = LayoutInflater.from(container.getContext());
             List<KaryaKarta> list = mBirthdayMap.get(AppConstants.RECENTS_KEY);
+
+            Calendar yearObj = Calendar.getInstance();
+            yearObj.setTime(list.get(0).getBirthday());
+
             Calendar today = Calendar.getInstance();
+            today.set(Calendar.YEAR, yearObj.get(Calendar.YEAR));
 
             for (KaryaKarta karyaKarta : list) {
+
                 Date birthday = karyaKarta.getBirthday();
                 Calendar dob = Calendar.getInstance();
                 dob.setTime(birthday);
-                int diff = today.get(Calendar.DATE) - dob.get(Calendar.DATE);
-                String day = "";
-                if(diff == 1) {
+
+                long diff = today.getTimeInMillis() - dob.getTimeInMillis();
+                long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+
+                String day;
+                if(days == 1) {
                     day = " day";
                 } else {
                     day = " days";
                 }
 
-                day = Integer.toString(diff).concat(day);
+                day = Long.toString(days).concat(day);
                 String date = new SimpleDateFormat("MMM d", Locale.ENGLISH).format(birthday);
                 String dateStr = String.format(AppConstants.RECENT_BIRTHDAT_TAG, day, date);
                 View view = createKaryaKartaDetailView(inflater, container, karyaKarta, dateStr, true);
@@ -132,7 +155,9 @@ public class BirthdayListAdapter extends RecyclerView.Adapter {
 
     private void addUpcomingBirthdayViews(LinearLayout container) {
         if(container.getChildCount() == 0) {
-            getTomorrowBirthdayViews(container);
+            if(mBirthdayMap.containsKey(AppConstants.TOMORROW_KEY)) {
+                getTomorrowBirthdayViews(container);
+            }
 
             LayoutInflater inflater = LayoutInflater.from(container.getContext());
             List<KaryaKarta> list = mBirthdayMap.get(AppConstants.UPCOMING_KEY);
@@ -174,25 +199,23 @@ public class BirthdayListAdapter extends RecyclerView.Adapter {
     }
 
     private void getTomorrowBirthdayViews(LinearLayout container) {
-        if(mBirthdayMap.containsKey(AppConstants.TOMORROW_KEY)) {
-            LayoutInflater inflater = LayoutInflater.from(container.getContext());
+        LayoutInflater inflater = LayoutInflater.from(container.getContext());
 
-            View subHeaderView = inflater.inflate(R.layout.row_birthday_header, container, false);
-            subHeaderView.findViewById(R.id.rowHeader).setVisibility(View.GONE);
-            subHeaderView.findViewById(R.id.viewSeparator).setVisibility(View.INVISIBLE);
-            subHeaderView.findViewById(R.id.rowSubHeader).setVisibility(View.VISIBLE);
+        View subHeaderView = inflater.inflate(R.layout.row_birthday_header, container, false);
+        subHeaderView.findViewById(R.id.rowHeader).setVisibility(View.GONE);
+        subHeaderView.findViewById(R.id.viewSeparator).setVisibility(View.INVISIBLE);
+        subHeaderView.findViewById(R.id.rowSubHeader).setVisibility(View.VISIBLE);
 
-            ((TextView)subHeaderView.findViewById(R.id.rowSubHeader)).setText(AppConstants.TOMORROW_TAG);
-            container.addView(subHeaderView);
+        ((TextView)subHeaderView.findViewById(R.id.rowSubHeader)).setText(AppConstants.TOMORROW_TAG);
+        container.addView(subHeaderView);
 
-            List<KaryaKarta> list = mBirthdayMap.get(AppConstants.TOMORROW_KEY);
-            for (KaryaKarta karyaKarta : list) {
-                String date = new SimpleDateFormat("MMM d", Locale.ENGLISH).format(karyaKarta.getBirthday());
-                String dateStr = String.format(AppConstants.TOMORROW_BIRTHDAY_TAG, date);
-                View view = createKaryaKartaDetailView(inflater, container, karyaKarta, dateStr, true);
+        List<KaryaKarta> list = mBirthdayMap.get(AppConstants.TOMORROW_KEY);
+        for (KaryaKarta karyaKarta : list) {
+            String date = new SimpleDateFormat("MMM d", Locale.ENGLISH).format(karyaKarta.getBirthday());
+            String dateStr = String.format(AppConstants.TOMORROW_BIRTHDAY_TAG, date);
+            View view = createKaryaKartaDetailView(inflater, container, karyaKarta, dateStr, true);
 
-                container.addView(view);
-            }
+            container.addView(view);
         }
     }
 
