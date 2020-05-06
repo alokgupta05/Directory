@@ -155,6 +155,7 @@ public class SearchVillageListActivity extends AppCompatActivity implements Vill
         for (int i = 0; i < sharingList.size(); i++) {
             VillageEntry villageEntry = sharingList.get(i);
             content = content.concat(Integer.toString(i + 1)).concat(")\n")
+                    .concat("Village Name: ").concat(villageEntry.getGsx$village().get$t()).concat("\n")
                     .concat("Details: ").concat(villageEntry.getGsx$details().get$t()).concat("\n")
                     .concat("Scheme: ").concat(villageEntry.getGsx$scheme().get$t()).concat("\n")
                     .concat("Status: ").concat(villageEntry.getGsx$status().get$t()).concat("\n")

@@ -92,7 +92,8 @@ public class VillageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         branchHolderView.btnShare.setOnClickListener(
                 (View v) -> {
                     if(onClickPerson != null && !mIsMultipleSharing) {
-                        String content = "Details: "+ personInfo.getGsx$details().get$t() +
+                        String content = "Village Name: "+personInfo.getGsx$village().get$t() +
+                                "\nDetails: "+ personInfo.getGsx$details().get$t() +
                                 "\nScheme: "+ personInfo.getGsx$scheme().get$t() +
                                 "\nStatus:" + personInfo.getGsx$status().get$t() +
                                 "\nSanctioned Amount:" + personInfo.getGsx$sanctionedamount().get$t();
