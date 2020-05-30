@@ -2,6 +2,7 @@ package com.ajit.bjp.model.karyakarta;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import java.util.Date;
 
@@ -184,5 +185,31 @@ public class KaryaKarta implements Parcelable {
         parcel.writeString(vidhanSabhaWardNo);
         parcel.writeString(jilaParishadGat);
         parcel.writeString(information);
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        String karyaKartaObj = "";
+        try{
+            karyaKartaObj = "Full Name - "+fullName+
+                    " DOB - "+dob.toString()+
+                    " Birthday Date - "+birthday.toString()+
+                    " Village Name - "+villageName+
+                    " Occupation - "+occupation+
+                    " Blood Group - "+bloodGroup+
+                    " Mobile No - "+mobileNo+
+                    " Whats App No - "+whatsAppNo+
+                    "Family Head - "+familyHead+
+                    "Wadi Wasti Name - "+wadiWastiName+
+                    "Gram Panchayat Ward No - "+gramPanchayatWardNo+
+                    "Vidhan Sabha Ward No - "+vidhanSabhaWardNo+
+                    "Jila Parishad Gat - "+jilaParishadGat+
+                    "Information - "+information;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return karyaKartaObj;
     }
 }

@@ -126,7 +126,9 @@ public final class AppUtils {
             }
 
             row++;
-            list.add(karyaKarta);
+            if(!karyaKarta.toString().isEmpty()) {
+                list.add(karyaKarta);
+            }
 
         }
 
