@@ -125,7 +125,7 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return mFilteredList.size();
+        return (mFilteredList != null) ? mFilteredList.size() : 0;
     }
 
     public Filter getFilter() {
@@ -366,7 +366,7 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
                 }
 
                 for (KaryaKarta person : tempList) {
-                    if (person.getVidhanSabhaWardNo().equals(jilaParishad)) {
+                    if (person.getJilaParishadGat().equals(jilaParishad)) {
                         jilaParishadFilterList.add(person);
                     }
                 }

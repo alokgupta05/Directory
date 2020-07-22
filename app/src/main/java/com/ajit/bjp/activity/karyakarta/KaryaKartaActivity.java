@@ -262,7 +262,10 @@ public class KaryaKartaActivity extends AppCompatActivity {
                 TextUtils.isEmpty(txtVidhanSabha.getText().toString().trim()) ||
                 jilaParishadSelector.getSelectedItemPosition() > 0) {
 
-                searchView.setQuery("", true);
+                if(!searchView.getQuery().toString().trim().isEmpty()) {
+                    searchView.setQuery("", true);
+                }
+
                 Map<String, String> filterMap = new HashMap<>();
                 if(!TextUtils.isEmpty(txtVillage.getText().toString().trim())) {
                     filterMap.put(KaryakarteListAdapter.VILLAGE_FILTER, txtVillage.getText().toString().trim());
