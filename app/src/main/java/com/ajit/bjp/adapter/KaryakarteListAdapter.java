@@ -303,7 +303,7 @@ public class KaryakarteListAdapter extends RecyclerView.Adapter {
                 }
 
                 for (KaryaKarta person : tempList) {
-                    if (person.getBloodGroup().equals(bloodGroup)) {
+                    if (person.getBloodGroup() != null && person.getBloodGroup().equals(bloodGroup)) {
                         bloodGrpFilterList.add(person);
                     }
                 }
