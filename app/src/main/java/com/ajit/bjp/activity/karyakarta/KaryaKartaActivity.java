@@ -301,7 +301,9 @@ public class KaryaKartaActivity extends AppCompatActivity {
         Set<String> setVillages = new HashSet<>();
 
         for(KaryaKarta karyaKarta : mKaryakartaList) {
-            setVillages.add(karyaKarta.getVillageName());
+            if(karyaKarta.getVillageName() != null) {
+                setVillages.add(karyaKarta.getVillageName());
+            }
         }
 
         List<String> villages = new ArrayList<>();
@@ -315,7 +317,9 @@ public class KaryaKartaActivity extends AppCompatActivity {
         Set<String> setBloodGroup = new HashSet<>();
 
         for (KaryaKarta karyaKarta : mKaryakartaList) {
-            setBloodGroup.add(karyaKarta.getBloodGroup());
+            if(karyaKarta.getBloodGroup() != null) {
+                setBloodGroup.add(karyaKarta.getBloodGroup());
+            }
         }
 
         List<String> bloodGroups = new ArrayList<>();
@@ -329,7 +333,9 @@ public class KaryaKartaActivity extends AppCompatActivity {
         Set<String> setGramPanchayat = new HashSet<>();
 
         for (KaryaKarta karyaKarta : mKaryakartaList) {
-            setGramPanchayat.add(karyaKarta.getGramPanchayatWardNo());
+            if(karyaKarta.getGramPanchayatWardNo() != null) {
+                setGramPanchayat.add(karyaKarta.getGramPanchayatWardNo());
+            }
         }
 
         List<String> gramPanchayats = new ArrayList<>();
@@ -343,7 +349,9 @@ public class KaryaKartaActivity extends AppCompatActivity {
         Set<String> setVidhanSabha = new HashSet<>();
 
         for (KaryaKarta karyaKarta : mKaryakartaList) {
-            setVidhanSabha.add(karyaKarta.getVidhanSabhaWardNo());
+            if(karyaKarta.getVidhanSabhaWardNo() != null) {
+                setVidhanSabha.add(karyaKarta.getVidhanSabhaWardNo());
+            }
         }
 
         List<String> vidhanSabhas = new ArrayList<>();
@@ -357,7 +365,9 @@ public class KaryaKartaActivity extends AppCompatActivity {
         Set<String> setJilaParishad = new HashSet<>();
 
         for (KaryaKarta karyaKarta : mKaryakartaList) {
-            setJilaParishad.add(karyaKarta.getJilaParishadGat());
+            if(karyaKarta.getJilaParishadGat() != null) {
+                setJilaParishad.add(karyaKarta.getJilaParishadGat());
+            }
         }
 
         List<String> jilaParishads = new ArrayList<>();
