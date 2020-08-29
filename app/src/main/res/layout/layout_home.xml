@@ -45,16 +45,28 @@
         </android.support.v7.widget.Toolbar>
 
         <Button
+            android:id="@+id/btnCovid"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:text="Corona Complaints"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimary"
+            android:visibility="visible"/>
+
+        <Button
             android:id="@+id/imgDirectory"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="30dp"
             android:layout_marginStart="@dimen/dp_20"
             android:layout_marginEnd="@dimen/dp_20"
             android:text="Directory"
             android:textColor="@android:color/white"
             android:background="@color/colorPrimary"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
 
         <Button
             android:id="@+id/imgVillages"
@@ -69,13 +81,13 @@
             android:visibility="gone"/>
 
         <Button
-            android:id="@+id/btnCovid"
+            android:id="@+id/btnBirthdays"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginTop="30dp"
             android:layout_marginStart="@dimen/dp_20"
             android:layout_marginEnd="@dimen/dp_20"
-            android:text="Corona Complaints"
+            android:text="@string/birthdays"
             android:textColor="@android:color/white"
             android:background="@color/colorPrimary"
             android:visibility="visible"/>

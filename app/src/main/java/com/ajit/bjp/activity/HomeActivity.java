@@ -88,6 +88,10 @@ public class HomeActivity extends AppCompatActivity {
             launchCoronaComplaint();
         });
 
+        findViewById(R.id.btnBirthdays).setOnClickListener( view ->
+            launchBirthday()
+        );
+
         findViewById(R.id.btnToolbarMenu).setOnClickListener( view -> {
             drawerLayout.openDrawer(GravityCompat.START);
         });
