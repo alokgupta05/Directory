@@ -105,11 +105,18 @@ public class BirthdayListAdapter extends RecyclerView.Adapter {
         if(container.getChildCount() == 0) {
             List<KaryaKarta> list = mBirthdayMap.get(AppConstants.TODAY_KEY);
             LayoutInflater inflater = LayoutInflater.from(container.getContext());
+            String lblYears = container.getContext().getString(R.string.lblYears);
+
             for (KaryaKarta karyaKarta : list) {
 
                 String date = new SimpleDateFormat("MMM d", Locale.ENGLISH).format(karyaKarta.getBirthday());
                 String dateStr = String.format(AppConstants.TODAY_BIRTHDAY_TAG, date);
                 View view = createKaryaKartaDetailView(inflater, container, karyaKarta, dateStr, true);
+
+                String age = Integer.toString(getAge(karyaKarta)).concat(" ").concat(lblYears);
+
+                view.findViewById(R.id.ageLayout).setVisibility(View.VISIBLE);
+                ((TextView)view.findViewById(R.id.txtAge)).setText(age);
 
                 container.addView(view);
             }
@@ -310,6 +317,15 @@ public class BirthdayListAdapter extends RecyclerView.Adapter {
         }
 
         return monthStr;
+    }
+
+    private int getAge(KaryaKarta karyaKarta) {
+        Calendar today = Calendar.getInstance();
+
+        Calendar dob = Calendar.getInstance();
+        dob.setTime(karyaKarta.getDob());
+
+        return today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
     }
 
     private class BirthdayHeaderViewHolder extends RecyclerView.ViewHolder {

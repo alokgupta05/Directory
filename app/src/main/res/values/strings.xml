@@ -9,6 +9,8 @@
     <string name="birthdays">Birthdays</string>
     <string name="daily_program">Daily Program</string>
     <string name="self_task">Self Task</string>
+    <string name="lblAge">Age</string>
+    <string name="lblYears">years</string>
 
     <string name="title_activity_karykarta_search">KarykartaSearchActivity</string>
     <string name="dummy_button">Dummy Button</string>
