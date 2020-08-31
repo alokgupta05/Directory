@@ -114,7 +114,7 @@ public class KaryakartaBirthdayActivity extends AppCompatActivity {
             birthdayMap.put(AppConstants.RECENTS_KEY, recents);
         }
 
-        List<KaryaKarta> tomorrow = getTomorrowBirthdays(today, karyaKartaList);
+        List<KaryaKarta> tomorrow = getTomorrowBirthdays(karyaKartaList);
         if(!tomorrow.isEmpty()) {
             birthdayMap.put(AppConstants.TOMORROW_KEY, tomorrow);
         }
@@ -196,8 +196,11 @@ public class KaryakartaBirthdayActivity extends AppCompatActivity {
 
     }
 
-    private List<KaryaKarta> getTomorrowBirthdays(Calendar today, List<KaryaKarta> karyaKartaList) {
+    private List<KaryaKarta> getTomorrowBirthdays(List<KaryaKarta> karyaKartaList) {
         List<KaryaKarta> list = new ArrayList<>();
+
+        Calendar tomorrow = Calendar.getInstance();
+        tomorrow.add(Calendar.DATE, 1);
 
         for (KaryaKarta karyaKarta : karyaKartaList) {
 
@@ -206,10 +209,10 @@ public class KaryakartaBirthdayActivity extends AppCompatActivity {
                 Calendar dob = Calendar.getInstance();
                 dob.setTime(karyaKarta.getBirthday());
 
-                if(today.get(Calendar.MONTH) == dob.get(Calendar.MONTH)) {
-                    if((dob.get(Calendar.DATE) - today.get(Calendar.DATE) == 1)) {
-                        list.add(karyaKarta);
-                    }
+                if(tomorrow.get(Calendar.MONTH) == dob.get(Calendar.MONTH) &&
+                        tomorrow.get(Calendar.DATE) == dob.get(Calendar.DATE)) {
+
+                    list.add(karyaKarta);
                 }
             }
         }
@@ -225,12 +228,12 @@ public class KaryakartaBirthdayActivity extends AppCompatActivity {
         yearObj.setTime(karyaKartaList.get(0).getBirthday());
 
         Calendar dayAfterTomorrow = Calendar.getInstance();
-        dayAfterTomorrow.set(Calendar.DATE, dayAfterTomorrow.get(Calendar.DATE) + 2);
+        dayAfterTomorrow.add(Calendar.DATE, 2);
 
-        Calendar nextThirtyDays = Calendar.getInstance();
-        nextThirtyDays.set(Calendar.DATE, dayAfterTomorrow.get(Calendar.DATE) + 7);
+        Calendar nextSevenDays = Calendar.getInstance();
+        nextSevenDays.add(Calendar.DATE, 7);
 
-        boolean isMonthSame = (dayAfterTomorrow.get(Calendar.MONTH) == nextThirtyDays.get(Calendar.MONTH));
+        boolean isMonthSame = (dayAfterTomorrow.get(Calendar.MONTH) == nextSevenDays.get(Calendar.MONTH));
 
         for(KaryaKarta karyaKarta : karyaKartaList) {
 
@@ -242,10 +245,10 @@ public class KaryakartaBirthdayActivity extends AppCompatActivity {
                 if(dob.get(Calendar.MONTH) == dayAfterTomorrow.get(Calendar.MONTH)) {
                     if(isMonthSame) {
                         if(dob.get(Calendar.DATE) >= dayAfterTomorrow.get(Calendar.DATE) &&
-                                dob.get(Calendar.DATE) <= nextThirtyDays.get(Calendar.DATE)) {
+                                dob.get(Calendar.DATE) <= nextSevenDays.get(Calendar.DATE)) {
                             list.add(karyaKarta);
 
-                        } else if(dob.get(Calendar.DATE) > nextThirtyDays.get(Calendar.DATE)) {
+                        } else if(dob.get(Calendar.DATE) > nextSevenDays.get(Calendar.DATE)) {
                             break;
                         }
                     } else {
@@ -254,8 +257,8 @@ public class KaryakartaBirthdayActivity extends AppCompatActivity {
                         }
                     }
 
-                } else if(dob.get(Calendar.MONTH) == nextThirtyDays.get(Calendar.MONTH) && !isMonthSame) {
-                    if(dob.get(Calendar.DATE) <= nextThirtyDays.get(Calendar.DATE)) {
+                } else if(dob.get(Calendar.MONTH) == nextSevenDays.get(Calendar.MONTH) && !isMonthSame) {
+                    if(dob.get(Calendar.DATE) <= nextSevenDays.get(Calendar.DATE)) {
                         list.add(karyaKarta);
                     } else {
                         break;
